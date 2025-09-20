@@ -66,4 +66,4 @@ You can take potions / effects that can change view of world
 Set up items to represent characters and objects in the game
 Implement basic movement including walking and jumping
 Draft rough designs and storyline
-Create basic layout of level
+Create basic layout of inital levels
