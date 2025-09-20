@@ -49,21 +49,21 @@ Monument Valley is a puzzle and indie game by Ustwo Games. The player leads the 
 
 ## Gameplay
 
-User interface: fireflies representing current amount of health
-Enemies to avoid representing insecurities / other things of the psyche
-To pass the level you must find certain objects 
-Fixed Camera
-Walk and move around with WASD and the arrow keys
-Shift to run increasing base movement speed (possibly a form of dash attack)
-Use space to jump
-Sheep faces cursor or walking direction
-You can take potions / effects that can change view of world
+- User interface: fireflies representing current amount of health
+- Enemies to avoid representing insecurities / other things of the psyche
+- To pass the level you must find certain objects
+- Fixed Camera
+- Walk and move around with WASD and the arrow keys
+- Shift to run increasing base movement speed (possibly a form of dash attack)
+- Use space to jump
+- Sheep faces cursor or walking direction
+- You can take potions / effects that can change view of world
 
 ## Development Plan
 
 ### Project Checkpoint 1-2: Basic Mechanics and Scripting (Ch 5-9)
 
-Set up items to represent characters and objects in the game
-Implement basic movement including walking and jumping
-Draft rough designs and storyline
-Create basic layout of inital levels
+- Set up items to represent characters and objects in the game
+- Implement basic movement including walking and jumping
+- Draft rough designs and storyline
+- Create basic layout of inital levels
