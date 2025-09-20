@@ -1,33 +1,65 @@
-# [Your Project Title Here]
+# Shepard of Dreams
 
 ## Team Members
 
-List your team members here. Link to each member's individual github account.
+Caroline Jia, Benjamin Albeyta, Sophia Qian
 
 ## Game Summary
 
-A one- or two-paragraph description of your game. If there are important story and/or character aspects, include them here.
+A game, where you play as a Sheep and progress through dreams trying to wake up a resting dreamer. Progress through levels jumping through different obstacles trying to reach the alarm clock at the end of the stage.
+
+Possible concept art:
+https://media.discordapp.net/attachments/1274442844916158586/1418300038265835581/IMG_0287.jpg?ex=68ce4717&is=68ccf597&hm=97b5104f7ba99888750ff23f68f46cd763040116eb86ee99ed8ae8d3f15dea41&=&format=webp&width=940&height=940
 
 ## Genres
 
-The broad category (or categories) your game will fall under. Examples include first-person shooter (FPS), real-time strategy (RTS), puzzle, rogue-like, etc. 
+3D Platformer, adventure, action.
 
 ## Inspiration
 
-### [Inspiration Game 1 Title Here]
+### [Super Mario Galaxy]
+Inspiration in terms of general game structure, level design, controls and movement. Being a level by level linear structure with different environments throughout. The general level design of a linear 3D platformer is largely where our inspiration from Mario Galaxy comes from; along with the variety of moves that Mario has while exploring a level and how those can lend themselves to more enjoyable gameplay and level design. 
+https://cdn.mobygames.com/covers/1295072-super-mario-galaxy-2-wii-reference-card.jpg
 
-A brief description (one paragraph) of Inspiration Game 1. include images and a discussion of how it will influence your design. Provide a link to all sources.
 
-### [Inspiration Game 2 Title Here]
+###[A Hat in Time]
+More inspiration in terms of movement, general momentum, level design as well as having more creative objectives and concepts on a level per level basis. Inspiration in terms of what can be done with a similar base set of mechanics to what we have.
+https://i0.wp.com/operationrainfall.com/wp-content/uploads/2017/10/Trainwreck.png?ssl=1
 
-Add one subsection per inspiration. In addition to games, you may dedicate sections to visual art and music.
+
+### [Animal Crossing]
+
+Animal Crossing is a social simulation game with anthropomorphic villager characters. The player spends time collecting items, catching bugs and fish, and customizing their island. Its cute and dreamy, yet semi-realistic art style influences our design. Additionally, we will take inspiration from its functionalities to interact with many objects in the game. 
+
+https://i.pinimg.com/736x/48/68/c5/4868c51d2714f3116e361be1fe81deb1.jpg 
+
+https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000027619/9989957eae3a6b545194c42fec2071675c34aadacd65e6b33fdfe7b3b6a86c3a 
+
+
+### [Monument Valley]
+
+Monument Valley is a puzzle and indie game by Ustwo Games. The player leads the princess Ida through mazes of optical illusions and impossible objects while manipulating the world around her to reach various platforms. We will take inspiration from their environmental art and puzzle level design, which matches our dream setting. We will also try to manipulate the geometry and perspective to unlock different user experiences.
+
+
+
 
 ## Gameplay
 
-A paragraph or bulleted list describing how the player will interact with the game, and the key gameplay mechanics that you plan to have implemented in your finalized game. Also use this section to broadly describe the expected user interface and game-controls. 
+User interface: health bar displaying current health
+Enemies to avoid representing insecurities / other things of the psyche
+To pass the level you must find certain objects 
+Fixed Camera
+Walk and move around with WASD and the arrow keys
+Shift to run increasing base movement speed.
+Use space to jump
+Sheep faces cursor or walking direction
+You can take potions / effects that can change view of world
 
 ## Development Plan
 
 ### Project Checkpoint 1-2: Basic Mechanics and Scripting (Ch 5-9)
 
-Sketch out a rough idea of what parts of your game you will implement for the next submission, Project Checkpoint 1-2: Basic Mechanics and Scripting involving Unity textbook Chapters 5 through 9. You will come back to update this for each submission based on which things you've accomplished and which need to be prioritized next. This will help you practice thinking ahead as well as reflecting on the progress you've made throughout the semester.
+Set up items to represent characters and objects in the game
+Implement basic movement including walking and jumping
+Draft rough designs and storyline
+Create basic layout of level
