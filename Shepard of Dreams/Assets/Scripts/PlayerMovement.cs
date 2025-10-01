@@ -1,39 +1,74 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using static PlayerInputActions;
 
-public class PlayerMovement : MonoBehaviour
-{
+namespace Platformer {
+    [CreateAssetMenu(fileName = "InputReader", menuName = "Platformer/InputReader")]
+    public class InputReader : ScriptableObject, IPlayerActions {
+        public event UnityAction<Vector2> Move = delegate { };
+        public event UnityAction<Vector2, bool> Look = delegate { };
+        public event UnityAction EnableMouseControlCamera = delegate { };
+        public event UnityAction DisableMouseControlCamera = delegate { };
+        public event UnityAction<bool> Jump = delegate { };
+        public event UnityAction<bool> Dash = delegate { };
 
-    public float speed;
-    public float rotationSpeed;
-    // Start is called before the first frame update
-
-    void Start()
-    {
+        PlayerInputActions inputActions;
         
-    }
+        public Vector3 Direction => inputActions.Player.Move.ReadValue<Vector2>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        float mouseX = Input.GetAxis("Mouse X");
-        transform.Rotate(0, mouseX * rotationSpeed * Time.deltaTime, 0);
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-        {
-            transform.Translate(0, 0, speed * Time.deltaTime);
+        void OnEnable() {
+            if (inputActions == null) {
+                inputActions = new PlayerInputActions();
+                inputActions.Player.SetCallbacks(this);
+            }
         }
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-        {
-            transform.Translate(0, 0, -speed * Time.deltaTime);
+        
+        public void EnablePlayerActions() {
+            inputActions.Enable();
         }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            transform.Translate(-speed * Time.deltaTime, 0, 0);
+
+        public void OnMove(InputAction.CallbackContext context) {
+            Move.Invoke(context.ReadValue<Vector2>());
         }
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Translate(speed * Time.deltaTime, 0, 0);
+
+        public void OnLook(InputAction.CallbackContext context) {
+            Look.Invoke(context.ReadValue<Vector2>(), IsDeviceMouse(context));
+        }
+
+        bool IsDeviceMouse(InputAction.CallbackContext context) => context.control.device.name == "Mouse";
+
+        public void OnMouseControlCamera(InputAction.CallbackContext context) {
+            switch (context.phase) {
+                case InputActionPhase.Started:
+                    EnableMouseControlCamera.Invoke();
+                    break;
+                case InputActionPhase.Canceled:
+                    DisableMouseControlCamera.Invoke();
+                    break;
+            }
+        }
+
+        public void OnRun(InputAction.CallbackContext context) {
+            switch (context.phase) {
+                case InputActionPhase.Started:
+                    Dash.Invoke(true);
+                    break;
+                case InputActionPhase.Canceled:
+                    Dash.Invoke(false);
+                    break;
+            }
+        }
+
+        public void OnJump(InputAction.CallbackContext context) {
+            switch (context.phase) {
+                case InputActionPhase.Started:
+                    Jump.Invoke(true);
+                    break;
+                case InputActionPhase.Canceled:
+                    Jump.Invoke(false);
+                    break;
+            }
         }
     }
 }
