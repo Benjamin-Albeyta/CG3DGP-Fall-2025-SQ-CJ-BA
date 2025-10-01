@@ -207,7 +207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28978416, y: 0.000000016468087, z: -0.0000000049861355, w: 0.95709205}
+  m_LocalRotation: {x: 0.28978416, y: -0.000000016468107, z: 0.0000000049861426, w: 0.95709205}
   m_LocalPosition: {x: 1.86, y: 7.39, z: -5.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -622,7 +622,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1232302310}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -7.1054274e-15, z: 6.661338e-15, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -801,8 +801,8 @@ Transform:
   m_GameObject: {fileID: 1589479276}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9089, y: 0.3102, z: 0.1918}
-  m_LocalScale: {x: 6.764501, y: 0.3797, z: 8.090829}
+  m_LocalPosition: {x: 17.2121, y: 0.3102, z: 13.7597}
+  m_LocalScale: {x: 37.371162, y: 0.3797, z: 35.226658}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -843,7 +843,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1000
+  maxSpeed: 10
+  groundFriction: 8
+  airControlMultiplier: 0.5
   rotateSpeed: 0
+  jumpSpeed: 15
+  dashSpeed: 25
+  dashAccelRate: 60
+  dashCooldown: 5
+  dashReturnRate: 5
+  groundCheck: {fileID: 1178091770}
+  groundDistance: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!136 &2098170843
 CapsuleCollider:
   m_ObjectHideFlags: 0

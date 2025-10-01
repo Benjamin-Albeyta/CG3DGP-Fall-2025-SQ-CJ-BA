@@ -1,45 +1,41 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
+    public float speed = 6f;
+    public float maxSpeed = 10f;
+    public float groundFriction = 5f;
+    public float airControlMultiplier = 0.5f;
 
-    //TO-DO ORGANIZE THESE FUCKING VARIABLES OMG THEY ARE A MESS
-    public float speed;
-    public float maxSpeed;
-    public float groundFriction;
+    [Header("Rotation")]
+    public float rotateSpeed = 5f;
 
-    public float rotateSpeed;
+    [Header("Jump")]
+    public float jumpSpeed = 8f;   // simplified: just upward velocity
 
-    private Vector2 movementValue;
-    public float airControlMultiplier;
+    [Header("Dash")]
+    public float dashSpeed = 25f;       // target max dash velocity
+    public float dashAccelRate = 60f;   // how fast we accelerate into dash speed
+    public float dashCooldown = 1f;     // cooldown
+    public float dashReturnRate = 5f;   // how fast we blend back to maxSpeed
 
-    private float lookValue;
-    public float maxJumpTime;
-    public float jumpHoldForce;
-
-    public float jumpForce;
-    public float dashForce;
-    public float dashCooldown;
-
-    private Rigidbody rb;
+    [Header("References")]
     public Transform groundCheck;
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
 
-    public float jumpSpeed;
-
-    public float currentSpeed;
-
+    private Rigidbody rb;
+    private Vector2 movementValue;
     private bool isGrounded;
     private bool canDash = true;
-
     private bool isDashing = false;
 
-      // Jump tracking
-    private bool jumpTriggered = false;
+    // Dash state
+    private Vector3 dashDir;
+    private bool reachedDashSpeed = false;
 
     private void Awake()
     {
@@ -60,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (value.isPressed && isGrounded)
         {
-            jumpTriggered = true;
+            rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
         }
     }
 
@@ -68,12 +64,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (value.isPressed && canDash)
         {
-            Vector3 dashDir = transform.TransformDirection(new Vector3(movementValue.x, 0, movementValue.y).normalized);
-            if (dashDir == Vector3.zero)
-                dashDir = transform.forward;
+            dashDir = transform.TransformDirection(new Vector3(movementValue.x, 0, movementValue.y).normalized);
+            if (dashDir == Vector3.zero) dashDir = transform.forward;
 
-            rb.AddForce(dashDir * dashForce, ForceMode.VelocityChange);
             isDashing = true;
+            reachedDashSpeed = false;
+
             StartCoroutine(DashCooldownRoutine());
         }
     }
@@ -85,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
 
         // --- Movement ---
         Vector3 moveForce = new Vector3(movementValue.x, 0, movementValue.y);
-        Vector3 horizontalVel = new Vector3(rb.velocity.x, 0, rb.velocity.z); // reuse for friction & clamping
+        Vector3 horizontalVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
         if (isGrounded)
         {
@@ -103,23 +99,48 @@ public class PlayerMovement : MonoBehaviour
             rb.AddRelativeForce(moveForce * airControlMultiplier * Time.fixedDeltaTime, ForceMode.Force);
         }
 
-        // --- Jump logic (velocity-based) ---
-        if (jumpTriggered)
+        // --- Dash logic ---
+        if (isDashing)
         {
-            rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
-            jumpTriggered = false;
-        }
+            Vector3 dashVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
-        // --- Clamp horizontal speed if not dashing ---
-        horizontalVel = new Vector3(rb.velocity.x, 0, rb.velocity.z); // recalc after jump/forces
-        if (!isDashing && horizontalVel.magnitude > maxSpeed)
+            if (!reachedDashSpeed)
+            {
+                // Accelerate toward dashSpeed
+                Vector3 targetVel = dashDir.normalized * dashSpeed;
+                Vector3 newVel = Vector3.MoveTowards(dashVel, targetVel, dashAccelRate * Time.fixedDeltaTime);
+
+                rb.velocity = new Vector3(newVel.x, rb.velocity.y, newVel.z);
+
+                if (newVel.magnitude >= dashSpeed * 0.95f) // close enough
+                {
+                    reachedDashSpeed = true;
+                }
+            }
+            else
+            {
+                // Decelerate smoothly back toward maxSpeed
+                if (dashVel.magnitude > maxSpeed)
+                {
+                    Vector3 decelVel = Vector3.Lerp(dashVel, dashDir.normalized * maxSpeed, dashReturnRate * Time.fixedDeltaTime);
+                    rb.velocity = new Vector3(decelVel.x, rb.velocity.y, decelVel.z);
+                }
+                else
+                {
+                    isDashing = false; // finished dash
+                }
+            }
+        }
+        else
         {
-            Vector3 limitedVel = horizontalVel.normalized * maxSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            // Normal speed clamp
+            horizontalVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+            if (horizontalVel.magnitude > maxSpeed)
+            {
+                Vector3 limitedVel = horizontalVel.normalized * maxSpeed;
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
         }
-
-        // --- Update current speed ---
-        currentSpeed = horizontalVel.magnitude;
     }
 
     private IEnumerator DashCooldownRoutine()
@@ -127,6 +148,5 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
-        isDashing = false;
     }
 }
