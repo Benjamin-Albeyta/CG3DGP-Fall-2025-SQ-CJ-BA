@@ -1,0 +1,28 @@
+using UnityEngine;
+
+public class Enemy : MonoBehaviour
+{
+    public float pushBackForce = 5f;  // How hard the enemy pushes the player back
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            // Get PlayerHealth component
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage();
+            }
+
+            // Push player back
+            Rigidbody playerRb = collision.gameObject.GetComponent<Rigidbody>();
+            if (playerRb != null)
+            {
+                Vector3 pushDir = (collision.gameObject.transform.position - transform.position).normalized;
+                pushDir.y = 0; // Keep push horizontal
+                playerRb.AddForce(pushDir * pushBackForce, ForceMode.Impulse);
+            }
+        }
+    }
+}
