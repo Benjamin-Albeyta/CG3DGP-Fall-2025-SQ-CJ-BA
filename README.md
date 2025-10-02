@@ -81,6 +81,12 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 
 ### Project Part 2: 3D Scenes and Models (Ch 3+4, 10)
 
+- Create basic layout of a first real level using primatives
+- Continue to refine and improve the control feel (possibly implement a new move)
+- Get 3D models with textures for important objects (enemies, end level objective, player, Health pickups)
+- Implement a view change potion effect (more reasonable if working with textures and more defined geometry)
+- Create more of a game loop, transitions from level to level, a real game over and victory screen between levels
+
 ## Development
 
 ### Project Checkpoint 1-2:
