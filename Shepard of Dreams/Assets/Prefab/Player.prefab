@@ -329,8 +329,8 @@ GameObject:
   - component: {fileID: 8231439650027883789}
   - component: {fileID: 8300184378546359001}
   - component: {fileID: 6954446079113465060}
-  - component: {fileID: 2991902682754240008}
   - component: {fileID: 1828100877997329011}
+  - component: {fileID: 2991902682754240008}
   - component: {fileID: 1578361331096719742}
   - component: {fileID: 5749165093681244009}
   - component: {fileID: 8786624613030118417}
@@ -438,39 +438,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2991902682754240008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6972362881744640798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ba37c736fe3e45f1aaf3ad5a25d1bc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 1000
-  maxSpeed: 10
-  groundFriction: 8
-  airControlMultiplier: 0.5
-  rotateSpeed: 0
-  jumpSpeed: 10
-  dashSpeed: 25
-  dashAccelRate: 60
-  dashCooldown: 5
-  dashReturnRate: 5
-  dashIndicators:
-  - {fileID: 0}
-  - {fileID: 0}
-  groundCheck: {fileID: 8026517015158122367}
-  groundDistance: 0.2
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 512
-  pulseSpeed: 3
-  pulseMinScale: 0.8
-  pulseMaxScale: 1.2
 --- !u!114 &1828100877997329011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,6 +469,37 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2991902682754240008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972362881744640798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba37c736fe3e45f1aaf3ad5a25d1bc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1000
+  maxSpeed: 10
+  groundFriction: 8
+  airControlMultiplier: 0.5
+  rotateSpeed: 0
+  jumpSpeed: 10
+  dashSpeed: 25
+  dashAccelRate: 60
+  dashCooldown: 5
+  dashReturnRate: 5
+  dashIndicators:
+  - {fileID: 0}
+  - {fileID: 0}
+  groundCheck: {fileID: 8026517015158122367}
+  groundDistance: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 512
+  cameraTransform: {fileID: 0}
 --- !u!54 &1578361331096719742
 Rigidbody:
   m_ObjectHideFlags: 0

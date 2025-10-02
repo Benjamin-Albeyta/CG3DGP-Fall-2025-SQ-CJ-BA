@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 dashDir;
     private bool reachedDashSpeed = false;
 
-    private void Awake()
+        private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -48,21 +48,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void OnMove(InputValue value)
+
+    public void OnMove(InputAction.CallbackContext context)
     {
-        Debug.Log("Move " + value.Get<Vector2>());
-        movementValue = value.Get<Vector2>() * speed;
+        movementValue = context.ReadValue<Vector2>() * speed;
+        Debug.Log("Move input: " + movementValue);
     }
 
-    public void OnJump(InputValue value)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if (value.isPressed && isGrounded)
+        if (context.performed && isGrounded)
             rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
     }
 
-    public void OnDash(InputValue value)
+    public void OnDash(InputAction.CallbackContext context)
     {
-        if (value.isPressed && canDash)
+        if (context.performed && canDash)
         {
             Vector3 camForward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
             Vector3 camRight = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up).normalized;
@@ -78,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(DashCooldownRoutine());
         }
     }
+
 
     private void FixedUpdate()
     {
