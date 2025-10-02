@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -64,6 +65,7 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.Log("Player is dead!");
             // TODO: trigger some type of game over
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
