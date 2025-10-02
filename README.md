@@ -19,7 +19,7 @@ Early Concept Sketch:
 
 ### [Super Mario Galaxy]
 Inspiration in terms of general game structure, level design, controls and movement. Being a level by level linear structure with different environments throughout. The general level design of a linear 3D platformer is largely where our inspiration from Mario Galaxy comes from; along with the variety of moves that Mario has while exploring a level and how those can lend themselves to more enjoyable gameplay and level design. 
-
+![Mario Galaxy Level](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmEhjqVIlFUWoa-AjDfDzlizQlJyPAhHEBug&s)
 ![Mario Galaxy Controls](https://cdn.mobygames.com/covers/1295072-super-mario-galaxy-2-wii-reference-card.jpg)
 
 
@@ -39,7 +39,7 @@ Animal Crossing is a social simulation game with anthropomorphic villager charac
 
 ### [Monument Valley]
 
-Monument Valley is a puzzle and indie game by Ustwo Games. The player leads the princess Ida through mazes of optical illusions and impossible objects while manipulating the world around her to reach various platforms. We will take inspiration from their environmental art and puzzle level design, which matches our dream setting. We will also try to manipulate the geometry and perspective to unlock different user experiences.
+Monument Valley is a puzzle and indie game by Ustwo Games. The player leads the princess Ida through mazes of optical illusions and impossible objects while manipulating the world around her to reach various platforms. We will take inspiration from their environmental art and puzzle level design, which matches our dream setting. The general aesthetic and style is what we're mainly drawing inspiration from here. 
 
 ![Monument Valley 1](https://design-milk.com/images/2014/04/caledonia.jpg)
 
