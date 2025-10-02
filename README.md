@@ -9,7 +9,7 @@ Caroline Jia, Benjamin Albeyta, Sophia Qian
 A game, where you play as a Sheep and progress through dreams trying to wake up a resting dreamer. Progress through levels jumping through different obstacles trying to reach the alarm clock at the end of the stage.
 
 Early Concept Sketch:
-![Concept Art](https://media.discordapp.net/attachments/1274442844916158586/1418300038265835581/IMG_0287.jpg?ex=68ce4717&is=68ccf597&hm=97b5104f7ba99888750ff23f68f46cd763040116eb86ee99ed8ae8d3f15dea41&=&format=webp&width=940&height=940)
+![Concept Art](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreig4f2yvxduzlcot7hqc6tedirmyhjp55fe5embpgj4jjtrur6rn7u@jpeg)
 
 ## Genres
 
@@ -49,21 +49,82 @@ Monument Valley is a puzzle and indie game by Ustwo Games. The player leads the 
 
 ## Gameplay
 
-- User interface: fireflies representing current amount of health
+- User interface: fireflies representing current amount of health (currently shown as orbs rotating around the player)
 - Enemies to avoid representing insecurities / other things of the psyche
 - To pass the level you must find certain objects
-- Fixed Camera
+- Third Person Camera controlled by the mouse
 - Walk and move around with WASD and the arrow keys
-- Shift to run increasing base movement speed (possibly a form of dash attack)
+- Shift to run increasing base movement speed, horns appear when dash is available, disappear when on cooldown
 - Use space to jump
 - Sheep faces cursor or walking direction
-- You can take potions / effects that can change view of world
 
 ## Development Plan
 
 ### Project Checkpoint 1-2: Basic Mechanics and Scripting (Ch 5-9)
 
-- Set up items to represent characters and objects in the game
-- Implement basic movement including walking and jumping
+- ~~Set up items to represent characters and objects in the game~~
+- ~~Implement basic movement including walking and jumping~~
+- ~~Implement a camera perspective~~
 - Draft rough designs and storyline
+Wasn't seen as a priority and so the focus was instead on making sure that the base gameplay and structure was properly implemented.
 - Create basic layout of inital levels
+Instead created a basic test level, just to make sure that colision, enemies and all other implemented aspects worked properly, most notably player movement.
+- One view-change potion effect
+Decided this wasn't a priority comapred to getting the baseline movement and mechanics implemented.
+- ~~Implement one advanced movement option~~ The dash
+
+### Additions
+
+- Created a health system with floating 3D objects that circle around the player
+- Created pickups to restore health
+- Created visual indicators of the dash and when it can be used
+
+### Project Part 2: 3D Scenes and Models (Ch 3+4, 10)
+
+## Development
+
+### Project Checkpoint 1-2:
+Our work for this checkpoint mainly consisted of establishing base movement mechanics, systems and getting used to collaborating on github, generally building a framework for future systems to build on.
+- #### Basic Movement, Collision and Test Map
+Basic movement and collision is implemented through the use of the Unity New Input system and rigidbody objects. The playermovement is implemented in the PlayerMovement.cs script and uses the ShepardofDreams.inputactions to interface with the Unity New Input System. While movement could admittedly still be refined, it is currently in a functional state and includes the ability to jump as well as a dash ability both of which are also implemented in PlayerMovement.cs and use the Unity New Input System for their implementation, the dash is shown visually to the player by the horns, they appear when the dash is able to be used and upon use dissapear until it can be used again.
+![Dash Ready](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreibojomqlnsgpwyuajlkrotmhei523ly6apcledaf3frj4rd3bygfq@jpeg)
+![Dash Used](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreicfgbzsrj5mxqoojo2hc65zphednm5hyknuuobdus4z7grklgyl2u@jpeg)
+
+The current base test map, is very simple; it was just a stage to test the movement as well as any interactions between the player unit and both enemies and game objects, for this purpose it served very well and allows us to test these systems before we work on wider implementation in a completed level.
+![Test Level](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreie7652xdrbesead5wv6tntcjxvo4icwkrxb32jnk5lsjcyvjbqgya@jpeg)
+
+- #### Camera Implementation
+Implementation of the camera was tricky, mostly due to a combination of factors involving us not intially knowing what type of camera to use. Ultimately a third person controlable camera was selected because it was easiest to implement and fit best into the game. The camera uses the New Input System which requires the Main Camera to be a child of the Player Unit object, as before we ran into issues with it being seperate and therefore having two player input systems which were conflicting with each other. Currently the camera works very well and has been sucessfully implemented with no issues. The code for the camera implementation is in the ThirdPersonCamera.cs script.
+![Camera Perspective](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiaq6sxzlmc2cjh3ajker4lmbcxkhwkebf7yl32fnp4e7t25kisdii@jpeg)
+
+- #### Health system
+Created a health system, both to track the amount of hits the player can take, but also to create systems that allow for a loss state, interactions with enemies and health recovering items.
+The main aspect of this system is in PlayerHealth.cs, which contains all elements relating to the Player Unit itself, it also creates 3 subobjects with no collision that rotate around the player as a way to represent current health, every time you take a hit you lose one and if you have none and take a hit, it triggers a "player died" debug message and game over. When getting hit the player is pushed back and given a brief moment of invulnerability to avoid being instantly hit again. 
+![Full Health](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreidnizphuvfvfgjefhc6ycimutuaizug4a255onpd6otp54wvshe4y@jpeg)
+![Taken a hit](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreic7lw5nfzrzt5kr2vs6vxr325j5wu7n6j55e5zkkmvdsnzprsduui@jpeg)
+
+Also implemented a collectable orb that refils the players health if collected, scripted with HealthPickup.cs
+![Health Pickup](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiaznmwoakvpqx7pwoz2yq7fuzzsnm36zv444ux7jpfxrgck46mmea@jpeg)
+
+- #### Basic enemy template 
+Created a basic enemy template, represented by a pill with a cube on its head. The enemy has a basic AI where it walks back and forth between two GameObjects (Point A) and (Point B). Enemy attributes and behavior controlled in Enemy.cs and EnemyPatrol.cs
+![Point A](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreigamp5ckdrpnxgnhy47uqg2rbfc4v3wb6ksmxquqyjmc5x26rgziy@jpeg)
+![Point B](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreia7kvwm5hmgle2jed5tugeeruqghy347b5fyvsaqrxwafbj3lqtcq@jpeg)
+
+- #### Win and Loss conditions
+Created a game state manager that runs and controls the win or loss conditions GameManager.cs
+Created checks which cause the scene to reload upon fufilling conditions for winning or losing, for losing this comes in the form of losing all of your health where upon a debug message "player died" will display in the console and the scene will reload. 
+![Game Over Example newly respawned](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreif2oaig6rwpxfmqhm7byghjyvrhdfvi6j6ajkn6nkkj4ekstafi6e@jpeg)
+
+There is also the object for completing the level, a rectangle that appears red initally, and upon coming into contact with it, turns green and resets the scene, DoorGoal.cs
+![End Level Object Red](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreifmni2sbb7ps76wozewqh7hnza65kdq7aactfn6ltr5hlxmb3cfdq@jpeg)
+![End Level Object Green](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreia4u3yjdqtzgpgsm2ww7qxuwqxrvb6xpssiajbwbyzd65p3bl6p4u@jpeg)
+
+# Running Instructions
+- Build and Run to load the scene (currently everything contained within one test scene)
+- WASD to move
+- Shift to dash
+- Space to jump
+- Mouse controls camera movement
+- Losing all health results in reloading the scene with a unique message in the console
+- Completing the objective by touching the object results in reloading the scene and the object turning green
