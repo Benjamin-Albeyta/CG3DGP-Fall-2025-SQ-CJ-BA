@@ -776,6 +776,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2991902682754240008, guid: 83041aea892c84b4682389ae2638fdf6,
+        type: 3}
+      propertyPath: airControl
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6972362881744640798, guid: 83041aea892c84b4682389ae2638fdf6,
         type: 3}
       propertyPath: m_Name
