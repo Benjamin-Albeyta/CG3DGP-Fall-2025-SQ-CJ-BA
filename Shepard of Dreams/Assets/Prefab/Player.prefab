@@ -407,6 +407,7 @@ GameObject:
   - component: {fileID: 5749165093681244009}
   - component: {fileID: 8786624613030118417}
   - component: {fileID: 8924759666573119192}
+  - component: {fileID: 2085476359502437345}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -524,16 +525,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba37c736fe3e45f1aaf3ad5a25d1bc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1000
-  maxSpeed: 10
-  groundFriction: 8
-  airControlMultiplier: 0.5
+  moveForce: 1500
   rotateSpeed: 5
-  jumpSpeed: 10
-  dashSpeed: 25
-  dashAccelRate: 60
+  maxSpeed: 10
+  airControl: 3
+  baseGroundDrag: 0
+  maxGroundDrag: 5
+  airDrag: 0
+  dashDrag: 0.1
+  dashDragDuration: 0.5
+  holdForce: 100
+  holdJumpDecay: 0.9
+  dashForce: 50
+  dashDuration: 0.2
   dashCooldown: 5
-  dashReturnRate: 5
   dashIndicators:
   - {fileID: 1620635315835056055}
   - {fileID: 7340924267499530304}
@@ -726,6 +731,24 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 0
+  zoomSpeed: 10
+  zoomSmoothSpeed: 10
+  zoomMin: 2
+  zoomMax: 10
+--- !u!114 &2085476359502437345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972362881744640798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f3db3e6c5af7c49bac25fb68c58341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallMultiplier: 3.5
+  lowJumpMultiplier: 2
 --- !u!1 &7005482916740032964
 GameObject:
   m_ObjectHideFlags: 0
@@ -1187,3 +1210,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 0
+  zoomSpeed: 10
+  zoomSmoothSpeed: 10
+  zoomMin: 2
+  zoomMax: 10

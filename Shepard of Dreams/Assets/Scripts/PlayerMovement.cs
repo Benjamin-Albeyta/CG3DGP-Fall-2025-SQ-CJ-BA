@@ -649,6 +649,7 @@ public class PlayerMovement : MonoBehaviour
 }
 */
 
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -666,14 +667,14 @@ public class PlayerMovement : MonoBehaviour
     public float maxGroundDrag = 5f;
     public float airDrag = 0f;
     public float dashDrag = 0.1f;
-    public float dashDragDuration = 0.5f; // how long drag stays reduced after dash
+    public float dashDragDuration = 1f; // how long drag stays reduced after dash
 
     [Header("Jump")]
     public float holdForce = 100f;
-    public float holdJumpDecay = 0.9f;
-    public float fallMultiplier = 3.5f;
-    public float lowJumpMultiplier = 2f;
-    public int jumpFrameLimit = 8;
+    public float holdJumpDecay = 0.8f;
+    //public float fallMultiplier = 3.5f;
+    //public float lowJumpMultiplier = 2f;
+    //public int jumpFrameLimit = 8;
     private bool jumpHeld = false;
     private bool jumpStarted = false; // tracks if a jump is currently active
     private float currentHoldForce;
@@ -713,6 +714,12 @@ public class PlayerMovement : MonoBehaviour
                 if (indicator != null) indicator.SetActive(false);
         }
     }
+
+    public bool IsJumpHeld()
+    {
+        return jumpHeld;
+    }
+
 
     public void OnMove(InputValue value) => movementValue = value.Get<Vector2>();
     public void OnJump(InputValue value)
@@ -789,12 +796,14 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.fixedDeltaTime);
         }
 
+
+        /*
         // Gravity mods
         if (rb.velocity.y < 0)
             rb.AddForce(Vector3.down * (Physics.gravity.y * (fallMultiplier - 1)) * Time.fixedDeltaTime, ForceMode.Acceleration);
         else if (rb.velocity.y > 0 && !jumpHeld)
             rb.AddForce(Vector3.down * (Physics.gravity.y * (lowJumpMultiplier - 1)) * Time.fixedDeltaTime, ForceMode.Acceleration);
-
+        */
 
         //jumpHeld = jumpAction.ReadValue<float>() > 0.5f;
 
@@ -852,7 +861,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         // Sustained jump
-        if (jumpHeld && currentHoldForce > 45f && jumpStarted)
+        if (jumpHeld && currentHoldForce > 40f && jumpStarted)
         {
             rb.AddForce(Vector3.up * currentHoldForce, ForceMode.Force);
             currentHoldForce *= holdJumpDecay;
