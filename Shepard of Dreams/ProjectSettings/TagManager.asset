@@ -15,8 +15,8 @@ TagManager:
   - Enemy
   - Object
   - Ground
-  - Wall
-  - 
+  - Wall (jump)
+  - Wall (no jump)
   - 
   - 
   - 

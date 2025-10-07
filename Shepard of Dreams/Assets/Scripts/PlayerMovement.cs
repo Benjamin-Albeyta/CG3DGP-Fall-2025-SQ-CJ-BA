@@ -1270,6 +1270,18 @@ public class PlayerMovement : MonoBehaviour
     public float initalJumpForce = 5f;
     private bool hasLeftGround = false; // NEW - tracks whether we actually left the ground
 
+    [Header("Wall Jump")]
+    public float wallJumpUpForce = 6f;          // Upward push
+    public float wallJumpHorizontalForce = 5f;  // Side push away from wall
+    public int maxWallJumps = 2;                // Number of wall jumps before landing
+    public float wallCheckDistance = 0.6f;      // How close to wall
+    public LayerMask wallMask;                  // Which layers are walls
+    public float wallStickGravityScale = 0.3f;  // How much gravity applies while sticking
+
+    private int remainingWallJumps;
+    private bool isTouchingWall;
+    private Vector3 lastWallNormal;
+
 
     [Header("Dash")]
     public float dashForce = 35f;
@@ -1314,8 +1326,25 @@ public class PlayerMovement : MonoBehaviour
     public void OnJump(InputValue value)
     {
         jumpHeld = value.isPressed;
+        // --- Normal ground jump ---
+        if (isGrounded && !jumpStarted)
+        {
+            jumpStarted = true;
+            hasLeftGround = false;
+            jumpStartTime = Time.time;
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.AddForce(Vector3.up * initalJumpForce, ForceMode.Impulse);
+            currentHoldForce = holdForce;
 
-        if (jumpHeld && isGrounded && !jumpStarted)
+            Debug.Log("Jump Started (ground)");
+        }
+            // --- Wall jump ---
+        else if (!isGrounded && isTouchingWall && remainingWallJumps > 0)
+        {
+            DoWallJump();
+        }
+        
+        /* if (jumpHeld && isGrounded && !jumpStarted)
         {   
             jumpStarted = true;
             hasLeftGround = false;
@@ -1325,7 +1354,7 @@ public class PlayerMovement : MonoBehaviour
             currentHoldForce = holdForce;
 
             Debug.Log("Jump Started (waiting to confirm lift-off)");
-        }
+        } */
 
         if (!jumpHeld && jumpStarted)
         {
@@ -1378,6 +1407,20 @@ public class PlayerMovement : MonoBehaviour
     {
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        CheckForWall();
+        // Reset wall jumps on landing
+        if (isGrounded)
+        {
+            remainingWallJumps = maxWallJumps;
+        }
+
+        // Optional: wall-stick slowdown (if you want slower sliding on walls)
+        if (isTouchingWall && !isGrounded && rb.velocity.y < 0f)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * wallStickGravityScale, rb.velocity.z);
+        }
+
 
         // For allowing more control
         if (isGrounded && rb.velocity.y < 0f)
@@ -1507,6 +1550,62 @@ public class PlayerMovement : MonoBehaviour
             currentHoldForce *= holdJumpDecay;
         }
     }
+    
+    private void CheckForWall()
+    {
+        isTouchingWall = false;
+        lastWallNormal = Vector3.zero;
+
+        // Check forward, right, and left directions
+        Vector3[] directions =
+        {
+            transform.forward,
+            transform.right,
+            -transform.right
+        };
+
+        foreach (var dir in directions)
+        {
+            if (Physics.Raycast(transform.position, dir, out RaycastHit hit, wallCheckDistance, wallMask))
+            {
+                isTouchingWall = true;
+                lastWallNormal += hit.normal; // accumulate normals (for corners)
+                Debug.DrawRay(transform.position, dir * wallCheckDistance, Color.yellow);
+            }
+        }
+
+        if (isTouchingWall)
+        {
+            lastWallNormal.Normalize(); // average direction
+        }
+    }
+
+    private void DoWallJump()
+    {
+        remainingWallJumps--;
+
+        // Reset velocity for consistent launch behavior
+        rb.velocity = Vector3.zero;
+
+        // Jump direction = Up + away from wall
+        Vector3 upComponent = Vector3.up * 0.7f;             // 70% upward
+        Vector3 awayComponent = lastWallNormal * 0.3f;       // 30% push away
+        Vector3 jumpDir = (upComponent + awayComponent).normalized;
+
+        // Apply wall jump force (only this controls strength)
+        rb.AddForce(jumpDir * wallJumpUpForce, ForceMode.Impulse);
+
+        // Optional: rotate player slightly away from wall
+        if (lastWallNormal != Vector3.zero)
+        {
+            Quaternion awayRotation = Quaternion.LookRotation(-lastWallNormal, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, awayRotation, 0.4f);
+        }
+
+        Debug.DrawRay(transform.position, jumpDir * 2f, Color.cyan, 1.0f);
+        Debug.Log($"Wall Jump! Direction: {jumpDir}, Remaining: {remainingWallJumps}");
+    }
+
 
 
 

@@ -535,9 +535,17 @@ MonoBehaviour:
   airDrag: 0
   dashDrag: 0.1
   dashDragDuration: 0.5
-  holdForce: 300
+  holdForce: 350
   holdJumpDecay: 0.5
   initalJumpForce: 10
+  wallJumpUpForce: 25
+  wallJumpHorizontalForce: 5
+  maxWallJumps: 5
+  wallCheckDistance: 0.6
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  wallStickGravityScale: 0.3
   dashForce: 100
   dashDuration: 0.2
   dashCooldown: 5
