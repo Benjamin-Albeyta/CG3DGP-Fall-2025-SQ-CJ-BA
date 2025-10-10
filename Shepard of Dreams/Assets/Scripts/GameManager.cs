@@ -25,4 +25,10 @@ public class GameManager : MonoBehaviour
         Debug.Log("[Game] Reset level");              
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void PlayerDied()
+    {
+        Debug.Log("[Game] Player died");
+        ResetLevel();
+    }
 }

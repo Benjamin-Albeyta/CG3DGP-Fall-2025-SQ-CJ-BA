@@ -65,7 +65,11 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.Log("Player is dead!");
             // TODO: trigger some type of game over
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.PlayerDied();
+            }
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
