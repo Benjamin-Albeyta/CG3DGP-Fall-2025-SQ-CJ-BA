@@ -35,32 +35,6 @@ public class CustomGravity : MonoBehaviour
     }
 }*/
 
-/*
-using UnityEngine;
-
-[RequireComponent(typeof(Rigidbody))]
-public class CustomGravity : MonoBehaviour
-{
-    [Header("Gravity Settings")]
-    [Tooltip("Downward acceleration applied constantly (m/s²).")]
-    public float customGravity = 15f;
-
-    private Rigidbody rb;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-        rb.useGravity = false; // disable Unity’s built-in gravity
-    }
-
-    private void FixedUpdate()
-    {
-        // Apply a constant downward force (independent of velocity)
-        rb.AddForce(Vector3.down * customGravity, ForceMode.Acceleration);
-    }
-}
-*/
-
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -85,16 +59,18 @@ public class CustomGravity : MonoBehaviour
     public bool IsGrounded => isGrounded;
     public Vector3 GroundNormal => groundNormal;
 
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = false; // disable Unity’s built-in gravity
-    }
+    } 
 
     private void FixedUpdate()
     {
         UpdateGroundState();
 
+        
         // Apply gravity direction
         if (isGrounded)
         {
@@ -109,7 +85,7 @@ public class CustomGravity : MonoBehaviour
         {
             // In air — apply normal downward gravity
             rb.AddForce(Vector3.down * customGravity, ForceMode.Acceleration);
-        }
+        } 
     }
 
     private void UpdateGroundState()

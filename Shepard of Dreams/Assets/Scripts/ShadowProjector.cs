@@ -1,3 +1,11 @@
+/**
+  * Author: Benjamin Albeyta
+  * Date Created: 10/8/2025
+  * Date Last Updated: 10/11/2025
+  * Summary: Creates a shadow object to show the player where they are landing
+  */
+
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
