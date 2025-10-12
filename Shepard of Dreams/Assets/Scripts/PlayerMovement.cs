@@ -84,14 +84,15 @@ public class PlayerMovement : MonoBehaviour
     private int jumpHoldFrameCount = 0;
     private const int maxJumpHoldFrames = 23;
 
-
-    
+    private PlayerSquashStretch squashStretch;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         rb.useGravity = false; // disable built-in gravity
+
+        squashStretch = GetComponent<PlayerSquashStretch>(); // optional
 
         if (dashIndicators != null)
         {
@@ -118,14 +119,16 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector3.up * initalJumpForce, ForceMode.Impulse);
             currentHoldForce = holdForce;
 
+            //squashStretch?.StretchVertical(); // elongate upward
+
             Debug.Log("Jump Started (ground)");
         }
-            // --- Wall jump ---
+        // --- Wall jump ---
         else if (!isGrounded && isTouchingWall && remainingWallJumps > 0)
         {
             DoWallJump();
+            squashStretch?.StretchVertical(); // optional, adds visual pop on wall jump
         }
-        
 
         if (!jumpHeld && jumpStarted)
         {
@@ -133,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Jump Released");
         }
     }
+
 
 
     public void OnDash(InputValue value)
@@ -218,47 +222,47 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector3.down * baseGravity * fallGravityMultiplier, ForceMode.Acceleration);
     }
 
+
+
     private void FixedUpdate()
     {
-
-        
-        //Need to make it so that jump can only be held for 25 frames max
-
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-
         CheckForWall();
+
         // Reset wall jumps on landing
         if (isGrounded)
         {
             remainingWallJumps = maxWallJumps;
-            wallClingTimer = 0f; //reset cling timer when grounded
+            wallClingTimer = 0f;
         }
 
         if (!isTouchingWall) wallClingTimer = 0f;
 
-
-        // For allowing more control
-        if (isGrounded && rb.velocity.y < 0f)
+        // --- LANDING EFFECT ---
+        if (isGrounded && !wasGrounded)
         {
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            squashStretch?.SquashVertical(); // compress on landing
+            StartCoroutine(ResetSquashAfterFrames(10));
         }
 
-        if (isGrounded)
+        // --- WALL CONTACT EFFECT ---
+        if (isTouchingWall && !isGrounded && rb.velocity.y <= 0f)
         {
-            if (rb.velocity.y < -2f)
-                rb.velocity = new Vector3(rb.velocity.x, -2f, rb.velocity.z);
-
-            // Extra stick-to-ground force
-            rb.AddForce(Vector3.down * 10f, ForceMode.Acceleration);
+            squashStretch?.SquashHorizontal(); // squish sideways when clinging to wall
         }
 
-        // --- Track hold duration ---
+        // --- DASH EFFECT ---
+        if (isDashing)
+        {
+            squashStretch?.StretchHorizontal(); // stretch horizontally while dashing
+        }
+
+        // --- Track jump hold ---
         if (jumpHeld)
         {
             jumpHoldFrameCount++;
 
-            // If held for too long (23 frames), force release
             if (jumpHoldFrameCount >= maxJumpHoldFrames)
             {
                 jumpHeld = false;
@@ -268,10 +272,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // Reset if released early
             jumpHoldFrameCount = 0;
         }
-
 
         HandleJump();
         ApplyGravity();
@@ -280,10 +282,26 @@ public class PlayerMovement : MonoBehaviour
         HandleDrag();
         HandleDashIndicators();
 
-
-
         wasGrounded = isGrounded;
-    } 
+
+        // When idle or airborne
+        if (!isGrounded && !jumpHeld)
+        {
+            squashStretch?.ResetScale();
+        }
+
+    }
+
+    private IEnumerator ResetSquashAfterFrames(int frameCount)
+    {   
+        for (int i = 0; i < frameCount; i++)
+            yield return new WaitForFixedUpdate(); // physics frame
+
+        squashStretch?.ResetScale();
+    }
+
+
+
         
 
 
@@ -351,6 +369,7 @@ public class PlayerMovement : MonoBehaviour
         {
             hasLeftGround = true;
             Debug.Log("Lift-off confirmed");
+            squashStretch?.StretchVertical(); // elongate upward
         }
 
         // If we never left ground within grace time, cancel jump
@@ -410,22 +429,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
     private void DoWallJump()
     {
         remainingWallJumps--;
 
-        // Reset velocity for consistent launch behavior
         rb.velocity = Vector3.zero;
 
-        // Jump direction = Up + away from wall
-        Vector3 upComponent = Vector3.up * 0.7f;             // 70% upward
-        Vector3 awayComponent = lastWallNormal * 0.3f;       // 30% push away
+        Vector3 upComponent = Vector3.up * 0.7f;
+        Vector3 awayComponent = lastWallNormal * 0.3f;
         Vector3 jumpDir = (upComponent + awayComponent).normalized;
 
-        // Apply wall jump force (only this controls strength)
         rb.AddForce(jumpDir * wallJumpUpForce, ForceMode.Impulse);
 
-        // Optional: rotate player slightly away from wall
+        squashStretch?.StretchVertical(); // elongate on wall jump for visual feedback
+
         if (lastWallNormal != Vector3.zero)
         {
             Quaternion awayRotation = Quaternion.LookRotation(-lastWallNormal, Vector3.up);
@@ -434,8 +452,9 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.DrawRay(transform.position, jumpDir * 2f, Color.cyan, 1.0f);
         Debug.Log($"Wall Jump! Direction: {jumpDir}, Remaining: {remainingWallJumps}");
-        wallClingTimer = 0f; // NEW - reset cling timer when wall jumping
+        wallClingTimer = 0f;
     }
+
 
 
 
@@ -487,6 +506,9 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         dashDragTimer = dashDragDuration;
 
+        squashStretch?.StretchHorizontal(); // visually stretch during dash
+        //squashStretch?.SquashVertical();
+
         float timer = 0f;
         while (timer < dashDuration)
         {
@@ -496,7 +518,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isDashing = false;
+        StartCoroutine(ResetStretchAfterDelay(0.1f));
     }
+
+    private IEnumerator ResetStretchAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        squashStretch?.ResetScale();
+    }
+
+
 
     private IEnumerator DashCooldownRoutine()
     {
