@@ -1,3 +1,10 @@
+/**
+  * Author: Benjamin Albeyta
+  * Date Created: 9/15/2025
+  * Date Last Updated: 10/11/2025
+  * Summary: Controls how enemies work, specifically gives them a movement where they go between two specified points (chosen as game objects)
+  */
+
 using UnityEngine;
 
 public class EnemyPatrol : MonoBehaviour

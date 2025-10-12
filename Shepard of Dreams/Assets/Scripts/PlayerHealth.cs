@@ -1,3 +1,10 @@
+/**
+  * Author: Benjamin Albeyta, Sophia Qian 
+  * Date Created: 10/4/2025
+  * Date Last Updated: 10/11/2025
+  * Summary: Keeps track of the players health as denoted by a series of orbs surrounding the player
+  */
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -64,12 +71,10 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             Debug.Log("Player is dead!");
-            // TODO: trigger some type of game over
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.PlayerDied();
             }
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

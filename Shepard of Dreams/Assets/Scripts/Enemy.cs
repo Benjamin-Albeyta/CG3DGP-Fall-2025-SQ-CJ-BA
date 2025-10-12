@@ -1,3 +1,10 @@
+/**
+  * Author: Benjamin Albeyta
+  * Date Created: 9/15/2025
+  * Date Last Updated: 10/11/2025
+  * Summary: Controls how enemies work, specifically getting knocked back when running into them and them damaging the player
+  */
+
 using UnityEngine;
 
 public class Enemy : MonoBehaviour

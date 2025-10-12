@@ -1,3 +1,10 @@
+/**
+  * Author: Benjamin Albeyta
+  * Date Created: 10/4/2025
+  * Date Last Updated: 10/11/2025
+  * Summary: Generates and updates the position of a dropshadow showing the player where they will land after jumps
+  */
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;

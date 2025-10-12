@@ -1,65 +1,9 @@
-/*using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-[RequireComponent(typeof(Rigidbody))]
-public class CustomGravity : MonoBehaviour
-{
-    [Header("Gravity Settings")]
-    public float fallMultiplier = 3.5f;
-    //public float lowJumpMultiplier = 2f;
-
-    private Rigidbody rb;
-    private PlayerMovement playerMovement; // To check jumpHeld
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-        playerMovement = GetComponent<PlayerMovement>();
-    }
-
-    private void FixedUpdate()
-    {
-        // Apply gravity mods
-        if (rb.velocity.y < 0)
-        {
-            // Faster fall
-            //rb.AddForce(Vector3.down * (Physics.gravity.y * (fallMultiplier - 1)) * Time.fixedDeltaTime, ForceMode.Acceleration);
-             rb.AddForce(Vector3.up * Physics.gravity.y * (fallMultiplier - 1), ForceMode.Acceleration);
-        }
-        //else if (rb.velocity.y > 0 && playerMovement != null && !playerMovement.IsJumpHeld())
-        //{
-            // Short hop when releasing jump early
-            //rb.AddForce(Vector3.down * (Physics.gravity.y * (lowJumpMultiplier - 1)) * Time.fixedDeltaTime, ForceMode.Acceleration);
-        //}
-    }
-}*/
-
-/*
-using UnityEngine;
-
-[RequireComponent(typeof(Rigidbody))]
-public class CustomGravity : MonoBehaviour
-{
-    [Header("Gravity Settings")]
-    [Tooltip("Downward acceleration applied constantly (m/s²).")]
-    public float customGravity = 15f;
-
-    private Rigidbody rb;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-        rb.useGravity = false; // disable Unity’s built-in gravity
-    }
-
-    private void FixedUpdate()
-    {
-        // Apply a constant downward force (independent of velocity)
-        rb.AddForce(Vector3.down * customGravity, ForceMode.Acceleration);
-    }
-}
-*/
+/**
+  * Author: Benjamin Albeyta
+  * Date Created: 9/20/2025
+  * Date Last Updated: 10/11/2025
+  * Summary: Handles player gravity by applying constant downward force on objects attached to 
+  */
 
 using UnityEngine;
 

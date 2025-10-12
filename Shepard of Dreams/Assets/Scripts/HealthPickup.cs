@@ -1,3 +1,10 @@
+/**
+  * Author: Benjamin Albeyta
+  * Date Created: 10/4/2025
+  * Date Last Updated: 10/11/2025
+  * Summary: Responsible for creating the items which can restore a players health when collected
+  */
+
 using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
