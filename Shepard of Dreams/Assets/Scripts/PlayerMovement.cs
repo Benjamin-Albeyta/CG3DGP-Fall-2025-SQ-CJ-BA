@@ -1,8 +1,8 @@
 /**
   * Author: Benjamin Albeyta
   * Date Created: 9/20/2025
-  * Date Last Updated: 10/11/2025
-  * Summary: Handles player movement and associated checks
+  * Date Last Updated: 10/12/2025
+  * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4
   */
 
 
@@ -62,6 +62,14 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     public Transform cameraTransform;
 
+    [Header("Custom Gravity")]
+    public float baseGravity = 15f;          // Default gravity strength
+    public float fallGravityMultiplier = 2f; // Gravity multiplier when falling
+    public float lowJumpMultiplier = 1.5f;   // Gravity multiplier for early jump release
+    public float peakGravityDelay = 0.05f;   // Short delay at jump peak
+    private bool peakGravityApplied = false; // track if peak gravity coroutine started
+
+
     private Rigidbody rb;
     private Vector2 movementValue;
     private bool isGrounded;
@@ -73,6 +81,9 @@ public class PlayerMovement : MonoBehaviour
     private float dashDragTimer = 0f;
     private float jumpStartTime = 0f;
     private const float liftOffGraceTime = 0.2f; // seconds allowed to leave ground
+    private int jumpHoldFrameCount = 0;
+    private const int maxJumpHoldFrames = 23;
+
 
     
 
@@ -80,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        rb.useGravity = false; // disable built-in gravity
 
         if (dashIndicators != null)
         {
@@ -95,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnJump(InputValue value)
     {
         jumpHeld = value.isPressed;
+
         // --- Normal ground jump ---
         if (isGrounded && !jumpStarted)
         {
@@ -114,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
         }
         
 
-if (!jumpHeld && jumpStarted)
+        if (!jumpHeld && jumpStarted)
         {
             currentHoldForce = 0f;
             Debug.Log("Jump Released");
@@ -141,28 +154,75 @@ if (!jumpHeld && jumpStarted)
         }
     }
 
-    private float GetSlopeAngle()
+
+    private void ApplyGravity()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundDistance + 1f, groundMask))
+        if (isGrounded || isDashing)
         {
-            return Vector3.Angle(hit.normal, Vector3.up);
+            peakGravityApplied = true;
+            return; // skip gravity on ground or during dash
         }
-    return 0f;
+
+        float verticalVel = rb.velocity.y;
+
+        if (isTouchingWall && !isGrounded && rb.velocity.y < 0f)
+        {
+
+            wallClingTimer += Time.fixedDeltaTime;
+
+            if (wallClingTimer < wallStickDuration)
+            {
+                rb.AddForce(Vector3.down * baseGravity * wallStickGravityScale, ForceMode.Acceleration);
+            } else
+            {
+                StartCoroutine(ApplyFallGravityAfterDelay());
+            }
+        }
+
+
+
+        if (verticalVel > 0.1f) // rising
+        {
+            if (!jumpHeld)
+            {
+                // Jump released early → pull down faster
+                rb.AddForce(Vector3.down * baseGravity * lowJumpMultiplier, ForceMode.Acceleration);
+            }
+            else
+            {
+                // Floaty upward
+                rb.AddForce(Vector3.down * baseGravity * 0.5f, ForceMode.Acceleration);
+            }
+
+            peakGravityApplied = false; // reset for peak detection
+        }
+        else if (verticalVel <= 0.1f && !peakGravityApplied) // near or past peak
+        {
+            peakGravityApplied = true;
+            StartCoroutine(ApplyFallGravityAfterDelay());
+        }
+        else if (verticalVel < -0.1f) // falling after peak
+        {
+            rb.AddForce(Vector3.down * baseGravity * fallGravityMultiplier, ForceMode.Acceleration);
+        }
+        else
+        {
+            StartCoroutine(ApplyFallGravityAfterDelay());
+        }
     }
+        
 
-
-    private Vector3 GetSlopeAdjustedDirection(Vector3 moveDir)
+    private IEnumerator ApplyFallGravityAfterDelay()
     {
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundDistance + 0.5f, groundMask))
-        {
-            return Vector3.ProjectOnPlane(moveDir, hit.normal).normalized;
-        }
-        return moveDir;
+        yield return new WaitForSeconds(peakGravityDelay);
+        rb.AddForce(Vector3.down * baseGravity * fallGravityMultiplier, ForceMode.Acceleration);
     }
-
 
     private void FixedUpdate()
     {
+
+        
+        //Need to make it so that jump can only be held for 25 frames max
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -172,25 +232,10 @@ if (!jumpHeld && jumpStarted)
         if (isGrounded)
         {
             remainingWallJumps = maxWallJumps;
-            wallClingTimer = 0f; // NEW - reset cling timer when grounded
+            wallClingTimer = 0f; //reset cling timer when grounded
         }
 
-        if (isTouchingWall && !isGrounded && rb.velocity.y < 0f)
-        {
-            wallClingTimer += Time.fixedDeltaTime;
-
-            if (wallClingTimer < wallStickDuration)
-            {
-                // Reduced falling for limited time
-                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * wallStickGravityScale, rb.velocity.z);
-            }
-            // After timer expires, normal gravity applies
-        }
-        else
-        {
-            // Reset cling timer if not touching wall
-            if (!isTouchingWall) wallClingTimer = 0f;
-        }
+        if (!isTouchingWall) wallClingTimer = 0f;
 
 
         // For allowing more control
@@ -208,16 +253,39 @@ if (!jumpHeld && jumpStarted)
             rb.AddForce(Vector3.down * 10f, ForceMode.Acceleration);
         }
 
+        // --- Track hold duration ---
+        if (jumpHeld)
+        {
+            jumpHoldFrameCount++;
+
+            // If held for too long (23 frames), force release
+            if (jumpHoldFrameCount >= maxJumpHoldFrames)
+            {
+                jumpHeld = false;
+                jumpHoldFrameCount = 0;
+                Debug.Log("Jump auto-released after 23 frames");
+            }
+        }
+        else
+        {
+            // Reset if released early
+            jumpHoldFrameCount = 0;
+        }
 
 
+        HandleJump();
+        ApplyGravity();
         HandleMovement();
         HandleRotation();
-        HandleJump();
         HandleDrag();
         HandleDashIndicators();
 
+
+
         wasGrounded = isGrounded;
-    }
+    } 
+        
+
 
     private void HandleMovement()
     {
@@ -227,51 +295,39 @@ if (!jumpHeld && jumpStarted)
 
         if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
 
-        if (!isDashing && moveDir.sqrMagnitude > 0.01f)
+        Vector3 horizontalVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if (!isDashing)
         {
             if (isGrounded)
             {
-                // --- NEW slope adjustment ---
-                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, groundDistance + 1f, groundMask))
-                {
-                    Vector3 slopeDir = Vector3.ProjectOnPlane(moveDir, hit.normal).normalized;
-                    float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-
-                    // Move along slope
-                    rb.AddForce(slopeDir * moveForce * Time.fixedDeltaTime, ForceMode.Force);
-
-                    // --- NEW downhill speed boost ---
-                    if (slopeAngle > 2f)
-                    {
-                        float downhillBoost = Mathf.Sin(slopeAngle * Mathf.Deg2Rad);
-                        rb.AddForce(slopeDir * downhillBoost * moveForce * 0.3f * Time.fixedDeltaTime, ForceMode.Force);
-                    }
-
-                    // --- NEW stick to ground ---
-                    if (rb.velocity.y <= 0f)
-                    {
-                        rb.AddForce(-hit.normal * 20f, ForceMode.Acceleration);
-                    }
-                }
+                // Grounded movement
+                if (moveDir.sqrMagnitude > 0.01f)
+                    rb.AddForce(moveDir * moveForce * Time.fixedDeltaTime, ForceMode.Force);
             }
             else
             {
-                // Air control
-                Vector3 horizontalVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-                if (horizontalVel.magnitude > 0.1f)
+                // --- AIR MOVEMENT ---
+                if (moveDir.sqrMagnitude > 0.01f)
                 {
-                    Vector3 desiredDir = moveDir.normalized;
-                    Vector3 newVel = Vector3.RotateTowards(
-                        horizontalVel,
-                        desiredDir * horizontalVel.magnitude,
-                        airControl * Time.fixedDeltaTime,
-                        0f
-                        );
-                    rb.velocity = new Vector3(newVel.x, rb.velocity.y, newVel.z);
+                    // Move while in air (normal control)
+                    Vector3 desiredVel = moveDir * (maxSpeed * 0.8f);
+                    Vector3 accel = (desiredVel - horizontalVel) * (airControl * Time.fixedDeltaTime);
+                    rb.AddForce(accel, ForceMode.VelocityChange);
+                }
+                else
+                {
+                    // --- NEW: Slow down quickly when no input midair ---
+                    float airStopDamping = 5f; // tweak between 3–8 for feel
+                    Vector3 slowVel = Vector3.Lerp(horizontalVel, Vector3.zero, airStopDamping * Time.fixedDeltaTime);
+                    rb.velocity = new Vector3(slowVel.x, rb.velocity.y, slowVel.z);
                 }
             }
         }
-    } 
+    }
+
+
+
 
     
     private void HandleRotation()
@@ -314,11 +370,13 @@ if (!jumpHeld && jumpStarted)
             Debug.Log("Landed, jump reset");
         }
 
+
         // Apply hold force only if truly airborne
         if (jumpHeld && hasLeftGround && jumpStarted && currentHoldForce > 40f && !isGrounded)
         {
             rb.AddForce(Vector3.up * currentHoldForce, ForceMode.Force);
             currentHoldForce *= holdJumpDecay;
+
         }
     }
     
@@ -337,6 +395,7 @@ if (!jumpHeld && jumpStarted)
 
         foreach (var dir in directions)
         {
+            //Checks for a wall in the given direction
             if (Physics.Raycast(transform.position, dir, out RaycastHit hit, wallCheckDistance, wallMask))
             {
                 isTouchingWall = true;
@@ -391,14 +450,22 @@ if (!jumpHeld && jumpStarted)
             return;
         }
 
+        bool noInput = movementValue.sqrMagnitude < 0.01f;
+
         if (isGrounded)
         {
+            if (noInput)
+            {
+                rb.drag = maxGroundDrag;
+            }
+            else
+            {
+                float horizontalSpeed = new Vector3(rb.velocity.x, 0f, rb.velocity.z).magnitude;
+                float t = Mathf.Clamp01(horizontalSpeed / maxSpeed);
+                float expT = Mathf.Pow(t, 6f); // increase exponent to make drag rise more steeply
 
-            float horizontalSpeed = new Vector3(rb.velocity.x, 0f, rb.velocity.z).magnitude;
-            float t = Mathf.Clamp01(horizontalSpeed / maxSpeed);
-            float expT = Mathf.Pow(t, 8f); // increase exponent to make drag rise more steeply
-
-            rb.drag = Mathf.Lerp(baseGroundDrag, maxGroundDrag, expT);
+                rb.drag = Mathf.Lerp(baseGroundDrag, maxGroundDrag, expT);
+            }
         }
         else
         {

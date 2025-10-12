@@ -1,10 +1,10 @@
-
 /**
   * Author: Benjamin Albeyta
   * Date Created: 10/11/2025
   * Date Last Updated: 10/11/2025
-  * Summary: Responsible for moving a platform that this is assigned too 
+  * Summary: Responsible for moving a platform that this script is attached too, two objects pointA and pointB make up the path that the platform moves between
   */
+
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]

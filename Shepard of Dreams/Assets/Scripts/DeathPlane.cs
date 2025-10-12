@@ -11,9 +11,9 @@ using UnityEngine;
 
 public class DeathPlane : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
-    {
-
-        GameManager.Instance.PlayerDied();
-    }
+  //On collision with the deathplane, activate the GameManager for player died.
+  private void OnCollisionEnter(Collision collision)
+  {
+    GameManager.Instance.PlayerDied();
+  }
 }

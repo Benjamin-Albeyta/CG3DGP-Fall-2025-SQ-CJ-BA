@@ -122,9 +122,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorRenderer: {fileID: 0}
-  idleColor: {r: 1, g: 0, b: 0, a: 1}
-  openColor: {r: 0, g: 1, b: 0, a: 1}
   reloadDelay: 0.6
+  Clock: {fileID: 7200430443101849710}
 --- !u!1001 &1115919238408979590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -133,6 +132,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 450021048039121400}
     m_Modifications:
+    - target: {fileID: 5054013306147385241, guid: d2275fc619142e94583cd06b9f01e784,
+        type: 3}
+      propertyPath: rotateY
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5054013306147385241, guid: d2275fc619142e94583cd06b9f01e784,
         type: 3}
       propertyPath: isScaling
@@ -155,8 +159,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5054013306147385241, guid: d2275fc619142e94583cd06b9f01e784,
         type: 3}
+      propertyPath: floatSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054013306147385241, guid: d2275fc619142e94583cd06b9f01e784,
+        type: 3}
       propertyPath: floatHeight
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5054013306147385241, guid: d2275fc619142e94583cd06b9f01e784,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 7483376575231727186, guid: d2275fc619142e94583cd06b9f01e784,
         type: 3}
@@ -233,6 +247,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2275fc619142e94583cd06b9f01e784, type: 3}
+--- !u!1 &7200430443101849710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7823205500758707432, guid: d2275fc619142e94583cd06b9f01e784,
+    type: 3}
+  m_PrefabInstance: {fileID: 1115919238408979590}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7540927906576257748 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7483376575231727186, guid: d2275fc619142e94583cd06b9f01e784,

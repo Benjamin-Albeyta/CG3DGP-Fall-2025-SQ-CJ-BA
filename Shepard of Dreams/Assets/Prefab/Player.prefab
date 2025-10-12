@@ -213,7 +213,7 @@ Transform:
   m_GameObject: {fileID: 6536666155252764256}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.968, z: -0.061}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -234,7 +234,6 @@ GameObject:
   - component: {fileID: 2991902682754240008}
   - component: {fileID: 1828100877997329011}
   - component: {fileID: 1578361331096719742}
-  - component: {fileID: 5749165093681244009}
   - component: {fileID: 8786624613030118417}
   - component: {fileID: 8924759666573119192}
   - component: {fileID: 2085476359502437345}
@@ -341,10 +340,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.32624787
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: -0.10665815}
 --- !u!114 &2991902682754240008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,13 +359,13 @@ MonoBehaviour:
   moveForce: 3500
   rotateSpeed: 5
   maxSpeed: 10
-  airControl: 3
+  airControl: 5
   baseGroundDrag: 0
   maxGroundDrag: 5
   airDrag: 0
   dashDrag: 0.1
   dashDragDuration: 0.5
-  holdForce: 350
+  holdForce: 300
   holdJumpDecay: 0.5
   initalJumpForce: 10
   wallJumpUpForce: 25
@@ -384,11 +383,15 @@ MonoBehaviour:
   dashIndicators:
   - {fileID: 228909583695292701}
   groundCheck: {fileID: 8026517015158122367}
-  groundDistance: 0.2
+  groundDistance: 0.1
   groundMask:
     serializedVersion: 2
     m_Bits: 512
   cameraTransform: {fileID: 3243872315576345113}
+  baseGravity: 15
+  fallGravityMultiplier: 2.1
+  lowJumpMultiplier: 1.5
+  peakGravityDelay: 0.0001
 --- !u!114 &1828100877997329011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,29 +510,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!136 &5749165093681244009
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6972362881744640798}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8786624613030118417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,7 +563,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6972362881744640798}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47f3db3e6c5af7c49bac25fb68c58341, type: 3}
   m_Name: 
