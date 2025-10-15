@@ -1,5 +1,6 @@
 /**
   * Author: Benjamin Albeyta
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 9/15/2025
   * Date Last Updated: 10/11/2025
   * Summary: Controls how enemies work, specifically getting knocked back when running into them and them damaging the player

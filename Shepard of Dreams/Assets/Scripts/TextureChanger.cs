@@ -1,5 +1,6 @@
 /**
   * Author: Benjamin Albeyta
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 10/14/2025
   * Date Last Updated: 10/14/2025
   * Summary: Changes textures of a given object in the level

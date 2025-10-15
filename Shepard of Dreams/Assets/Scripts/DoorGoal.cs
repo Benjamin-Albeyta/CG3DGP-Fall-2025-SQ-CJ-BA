@@ -1,5 +1,6 @@
 /**
   * Author: Sophia Qian, Benjamin Albeyta
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 9/20/2025
   * Date Last Updated: 10/12/2025
   * Summary: Responsible for keeping track of the end level objective, when player touches it, causes them to end the level and move on to the next one, through calling GameManager

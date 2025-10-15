@@ -1,5 +1,6 @@
 /**
   * Author: Benjamin Albeyta, Sophia Qian 
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 10/4/2025
   * Date Last Updated: 10/11/2025
   * Summary: Keeps track of the players health as denoted by a series of orbs surrounding the player

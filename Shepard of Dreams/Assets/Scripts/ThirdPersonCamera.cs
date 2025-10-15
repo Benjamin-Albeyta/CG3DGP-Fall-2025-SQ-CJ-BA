@@ -1,5 +1,6 @@
 /**
   * Author: Benjamin Albeyta
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 9/16/2025
   * Date Last Updated: 10/11/2025
   * Summary: T third person camera controller, allows the player to control location of camera using the mouse and to zoom in or out using the scroll wheel.

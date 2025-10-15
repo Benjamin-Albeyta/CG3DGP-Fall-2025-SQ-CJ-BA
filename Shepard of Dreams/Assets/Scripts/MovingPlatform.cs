@@ -1,5 +1,6 @@
 /**
   * Author: Benjamin Albeyta
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 10/11/2025
   * Date Last Updated: 10/11/2025
   * Summary: Responsible for moving a platform that this script is attached too, two objects pointA and pointB make up the path that the platform moves between
@@ -34,6 +35,7 @@ public class MovingPlatform : MonoBehaviour
             return;
         }
 
+        //Starts moving
         transform.position = startAtA ? pointA.position : pointB.position;
         movingToB = startAtA;
         target = movingToB ? pointB.position : pointA.position;
@@ -41,6 +43,7 @@ public class MovingPlatform : MonoBehaviour
 
     void FixedUpdate()
     {
+        //If not at point A or point B then move towards the other point
         if (!pointA || !pointB) return;
 
         Vector3 newPosition = Vector3.MoveTowards(rb.position, target, speed * Time.fixedDeltaTime);

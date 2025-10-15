@@ -1,5 +1,6 @@
 /**
   * Author: Benjamin Albeyta
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 10/12/2025
   * Date Last Updated: 10/14/2025
   * Summary: Applies squash and stretch to player model (still needs to be worked on / refined / implemented in terms of the dash, plus currently the squash brings off the ground and that needs to change) 

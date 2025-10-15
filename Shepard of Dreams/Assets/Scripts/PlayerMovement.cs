@@ -1,8 +1,9 @@
 /**
   * Author: Benjamin Albeyta
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 9/20/2025
   * Date Last Updated: 10/14/2025
-  * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4
+  * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4, also handles gravity and calls PlayerSquashStretch.cs
   */
 
 using System.Collections;
@@ -32,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private bool jumpStarted = false;
     private float currentHoldForce;
     public float initalJumpForce = 10f;
-    private bool hasLeftGround = false; // NEW - tracks whether we actually left the ground
+    private bool hasLeftGround = false;         // tracks whether we actually left the ground
 
     [Header("Wall Jump")]
     public float wallJumpUpForce = 6f;          // Upward push
@@ -41,12 +42,12 @@ public class PlayerMovement : MonoBehaviour
     public float wallCheckDistance = 0.6f;      // How close to wall
     public LayerMask wallMask;                  // Which layers are walls
     public float wallStickGravityScale = 0.3f;  // How much gravity applies while sticking
-    public float wallStickDuration = 2f; // NEW - how long reduced gravity applies
+    public float wallStickDuration = 2f;        //how long reduced gravity applies
 
     private int remainingWallJumps;
     private bool isTouchingWall;
-    private Vector3 lastWallNormal;
-    private float wallClingTimer = 0f; // NEW - track cling duration
+    private Vector3 lastWallNormal;             
+    private float wallClingTimer = 0f;          //track cling duration
 
 
     [Header("Dash")]
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 dashDir;
     private float dashDragTimer = 0f;
     private float jumpStartTime = 0f;
-    private const float liftOffGraceTime = 0.2f; // seconds allowed to leave ground
+    private const float liftOffGraceTime = 0.2f; // seconds allowed to leave ground before counts as a jump
     private int jumpHoldFrameCount = 0;
     private const int maxJumpHoldFrames = 23;
 
@@ -91,8 +92,10 @@ public class PlayerMovement : MonoBehaviour
         rb.freezeRotation = true;
         rb.useGravity = false; // disable built-in gravity
 
-        squashStretch = GetComponent<PlayerSquashStretch>(); // optional
+        //Gets the squash and stretch component to be used
+        squashStretch = GetComponent<PlayerSquashStretch>(); 
 
+        //makes sure that the dash indicators (horns) are properly instantiated at the start 
         if (dashIndicators != null)
         {
             foreach (var indicator in dashIndicators)
@@ -297,6 +300,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
+        //Matches the players movement to the direction they are facing with the camera
         Vector3 camForward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
         Vector3 camRight = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up).normalized;
         Vector3 moveDir = camForward * movementValue.y + camRight * movementValue.x;
@@ -315,7 +319,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                // --- AIR MOVEMENT ---
+                // Air movement
                 if (moveDir.sqrMagnitude > 0.01f)
                 {
                     // Move while in air (normal control)
@@ -325,8 +329,8 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else
                 {
-                    // --- NEW: Slow down quickly when no input midair ---
-                    float airStopDamping = 5f; // tweak between 3–8 for feel
+                    // Slow down quickly when no input midair ---
+                    float airStopDamping = 5f;
                     Vector3 slowVel = Vector3.Lerp(horizontalVel, Vector3.zero, airStopDamping * Time.fixedDeltaTime);
                     rb.velocity = new Vector3(slowVel.x, rb.velocity.y, slowVel.z);
                 }
@@ -340,6 +344,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void HandleRotation()
     {
+        //Rotate the player to match the direction being faced by the camera
         Vector3 camForward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
         Vector3 camRight = Vector3.ProjectOnPlane(cameraTransform.right, Vector3.up).normalized;
         Vector3 moveDir = camForward * movementValue.y + camRight * movementValue.x;
@@ -426,6 +431,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = Vector3.zero;
 
+        //Push away and up at these amounts
         Vector3 upComponent = Vector3.up * 0.7f;
         Vector3 awayComponent = lastWallNormal * 0.3f;
         Vector3 jumpDir = (upComponent + awayComponent).normalized;
@@ -449,7 +455,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-
+    //System for controlling speed through increased drag on the rigidbody
     private void HandleDrag()
     {
         if (isDashing || dashDragTimer > 0f)
@@ -482,6 +488,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //For controlling the horns, disapear when dashing and reappear when dash is ready to be used
     private void HandleDashIndicators()
     {
         if (dashIndicators != null)
@@ -511,6 +518,7 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(ResetStretchAfterDelay(0.1f));
     }
 
+    //Breifly waits to reset the stretch until after the dash has ended its inital momentum
     private IEnumerator ResetStretchAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -518,7 +526,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-
+    //Keeps track of the time between potential dash uses
     private IEnumerator DashCooldownRoutine()
     {
         canDash = false;

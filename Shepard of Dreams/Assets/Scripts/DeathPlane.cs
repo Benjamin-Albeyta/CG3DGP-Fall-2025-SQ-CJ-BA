@@ -1,5 +1,6 @@
 /**
   * Author: Benjamin Albeyta
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 10/11/2025
   * Date Last Updated: 10/11/2025
   * Summary: When attached to an object creates a death plane (touch = run player death)

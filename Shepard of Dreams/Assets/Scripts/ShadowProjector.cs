@@ -1,57 +1,10 @@
 /**
   * Author: Benjamin Albeyta
+  * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 10/4/2025
   * Date Last Updated: 10/11/2025
   * Summary: Generates and updates the position of a dropshadow showing the player where they will land after jumps
   */
-
-/*
-using System.Collections;
-using UnityEngine;
-using UnityEngine.InputSystem;
-
-public class ShadowCaster : MonoBehaviour
-{
-    [Header("References")]
-    public Transform player;        // The player transform
-    public GameObject shadowPrefab; // Shadow prefab (like a small circle or blob)
-    
-    [Header("Settings")]
-    public float maxDistance = 50f; // Max distance to check for ground
-    public LayerMask groundLayer;   // Layer of the ground
-
-    private GameObject shadowInstance;
-
-    void Start()
-    {
-        //Creates instance of the shadow
-        if (shadowPrefab != null)
-        {
-            shadowInstance = Instantiate(shadowPrefab);
-        }
-    }
-
-    void Update()
-    {
-        //Updates position of shadow based on if there is ground under player
-        if (player == null || shadowInstance == null) return;
-
-        RaycastHit hit;
-        Vector3 origin = player.position + Vector3.up * 0.1f; // Slight offset above player
-
-        // Cast ray downwards
-        if (Physics.Raycast(origin, Vector3.down, out hit, maxDistance, groundLayer))
-        {
-            shadowInstance.SetActive(true);
-            shadowInstance.transform.position = hit.point + Vector3.up * 0.01f; // Avoid z-fighting
-            shadowInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-        }
-        else
-        {
-            shadowInstance.SetActive(false); // Hide if no ground below
-        }
-    }
-}*/
 
 using System.Collections;
 using UnityEngine;
@@ -110,13 +63,12 @@ public class ShadowCaster : MonoBehaviour
         {
             shadowInstance.SetActive(true);
 
-            // --- POSITION ---
+            //position of shadow
             shadowInstance.transform.position = hit.point + positionOffset;
 
-            // --- ROTATION ---
             shadowInstance.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
 
-            // --- SCALE ---
+            //scale of shadow
             if (scaleWithHeight)
             {
                 // Shrinks as the player gets higher above ground
