@@ -86,6 +86,9 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerSquashStretch squashStretch;
 
+    private float fallThreshold = -2f;
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -93,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         rb.useGravity = false; // disable built-in gravity
 
         //Gets the squash and stretch component to be used
-        squashStretch = GetComponent<PlayerSquashStretch>(); 
+        squashStretch = GetComponent<PlayerSquashStretch>();
 
         //makes sure that the dash indicators (horns) are properly instantiated at the start 
         if (dashIndicators != null)
@@ -221,7 +224,17 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector3.down * baseGravity * fallGravityMultiplier, ForceMode.Acceleration);
     }
 
-
+    void Update()
+    {
+        if (transform.position.y < fallThreshold)
+        {
+            Debug.Log("Player is dead!");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.PlayerDied();
+            }
+        }
+    }
 
     private void FixedUpdate()
     {
