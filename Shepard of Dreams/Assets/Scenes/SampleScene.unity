@@ -1655,12 +1655,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &983270238 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3367787206234398961, guid: 83041aea892c84b4682389ae2638fdf6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7661189097631161123}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1268129845
 GameObject:
   m_ObjectHideFlags: 0
@@ -2137,12 +2131,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1340813620 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8026517015158122367, guid: 83041aea892c84b4682389ae2638fdf6,
-    type: 3}
-  m_PrefabInstance: {fileID: 7661189097631161123}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1344220501
 GameObject:
   m_ObjectHideFlags: 0
@@ -3071,11 +3059,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthPickup
       objectReference: {fileID: 0}
-    - target: {fileID: 8122567231556595926, guid: 83f7597de7ec0a743b39761d12613708,
-        type: 3}
-      propertyPath: healAmount
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3157,31 +3140,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3555214354016879760, guid: 83041aea892c84b4682389ae2638fdf6,
-        type: 3}
-      propertyPath: model
-      value: 
-      objectReference: {fileID: 983270238}
-    - target: {fileID: 3555214354016879760, guid: 83041aea892c84b4682389ae2638fdf6,
-        type: 3}
-      propertyPath: feetAnchor
-      value: 
-      objectReference: {fileID: 1340813620}
-    - target: {fileID: 6350658811374847172, guid: 83041aea892c84b4682389ae2638fdf6,
-        type: 3}
-      propertyPath: baseScale.x
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6350658811374847172, guid: 83041aea892c84b4682389ae2638fdf6,
-        type: 3}
-      propertyPath: baseScale.y
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6350658811374847172, guid: 83041aea892c84b4682389ae2638fdf6,
-        type: 3}
-      propertyPath: baseScale.z
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 6972362881744640798, guid: 83041aea892c84b4682389ae2638fdf6,
         type: 3}
       propertyPath: m_Name
@@ -3195,7 +3153,7 @@ PrefabInstance:
     - target: {fileID: 8159798670409555759, guid: 83041aea892c84b4682389ae2638fdf6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.89
+      value: 0.972
       objectReference: {fileID: 0}
     - target: {fileID: 8159798670409555759, guid: 83041aea892c84b4682389ae2638fdf6,
         type: 3}

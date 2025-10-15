@@ -1,7 +1,7 @@
 /**
   * Author: Benjamin Albeyta
   * Date Created: 10/12/2025
-  * Date Last Updated: 10/12/2025
+  * Date Last Updated: 10/14/2025
   * Summary: Applies squash and stretch to player model (still needs to be worked on / refined / implemented in terms of the dash, plus currently the squash brings off the ground and that needs to change) 
   */
 
@@ -10,6 +10,10 @@ using UnityEngine;
 
 public class PlayerSquashStretch : MonoBehaviour
 {
+    [Header("References")]
+    [Tooltip("Assign the empty VisualParent object whose pivot is at the feet of the player.")]
+    public Transform visualParent;
+
     [Header("General Settings")]
     [Tooltip("How quickly the scale returns to normal after deformation.")]
     public float returnSpeed = 8f;
@@ -31,14 +35,20 @@ public class PlayerSquashStretch : MonoBehaviour
 
     private void Awake()
     {
-        originalScale = transform.localScale;
+        if (visualParent == null)
+        {
+            Debug.LogError("PlayerSquashStretch: 'VisualParent' is not assigned! Please assign it in the Inspector.");
+            return;
+        }
+
+        originalScale = visualParent.localScale;
         targetScale = originalScale;
     }
 
     private void Update()
     {
-        // Smoothly interpolate back toward target scale
-        transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * returnSpeed);
+        // Smoothly interpolate the visual scale back toward target
+        visualParent.localScale = Vector3.Lerp(visualParent.localScale, targetScale, Time.deltaTime * returnSpeed);
     }
 
     /// <summary>
@@ -62,30 +72,6 @@ public class PlayerSquashStretch : MonoBehaviour
             originalScale.x * horizontalSquashAmount,
             originalScale.y * verticalStretchAmount,
             originalScale.z * horizontalSquashAmount
-        );
-    }
-
-    /// <summary>
-    /// Squash horizontally (e.g., when dashing or hitting a wall).
-    /// </summary>
-    public void SquashHorizontal()
-    {
-        targetScale = new Vector3(
-            originalScale.x * horizontalSquashAmount,
-            originalScale.y * verticalStretchAmount,
-            originalScale.z * horizontalStretchAmount
-        );
-    }
-
-    /// <summary>
-    /// Stretch horizontally (e.g., for fast movement bursts).
-    /// </summary>
-    public void StretchHorizontal()
-    {
-        targetScale = new Vector3(
-            originalScale.x * horizontalStretchAmount,
-            originalScale.y * verticalSquashAmount,
-            originalScale.z * horizontalStretchAmount
         );
     }
 

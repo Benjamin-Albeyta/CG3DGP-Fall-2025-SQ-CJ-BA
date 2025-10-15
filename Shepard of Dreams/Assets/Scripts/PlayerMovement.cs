@@ -1,10 +1,9 @@
 /**
   * Author: Benjamin Albeyta
   * Date Created: 9/20/2025
-  * Date Last Updated: 10/12/2025
+  * Date Last Updated: 10/14/2025
   * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4
   */
-
 
 using System.Collections;
 using UnityEngine;
@@ -101,8 +100,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public bool IsJumpHeld() => jumpHeld;
-
     public void OnMove(InputValue value) => movementValue = value.Get<Vector2>();
 
     public void OnJump(InputValue value)
@@ -149,7 +146,6 @@ public class PlayerMovement : MonoBehaviour
             Vector3 moveDir = camForward * movementValue.y + camRight * movementValue.x;
             if (moveDir.sqrMagnitude < 0.01f) moveDir = transform.forward;
 
-            //dashDir = moveDir.normalized;
             // Flatten dashDir so it always ignores slope steepness
             dashDir = Vector3.ProjectOnPlane(moveDir, Vector3.up).normalized;
 
@@ -246,16 +242,10 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(ResetSquashAfterFrames(10));
         }
 
-        // --- WALL CONTACT EFFECT ---
-        if (isTouchingWall && !isGrounded && rb.velocity.y <= 0f)
-        {
-            squashStretch?.SquashHorizontal(); // squish sideways when clinging to wall
-        }
-
         // --- DASH EFFECT ---
         if (isDashing)
         {
-            squashStretch?.StretchHorizontal(); // stretch horizontally while dashing
+            squashStretch?.SquashVertical(); // squash horizontally while dashing
         }
 
         // --- Track jump hold ---
@@ -506,8 +496,8 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         dashDragTimer = dashDragDuration;
 
-        squashStretch?.StretchHorizontal(); // visually stretch during dash
-        //squashStretch?.SquashVertical();
+        // visually stretch during dash
+        squashStretch?.SquashVertical();
 
         float timer = 0f;
         while (timer < dashDuration)
