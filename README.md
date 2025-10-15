@@ -140,7 +140,7 @@ There is also the object for completing the level, a rectangle that appears red 
 ![End Level Object Green](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreia4u3yjdqtzgpgsm2ww7qxuwqxrvb6xpssiajbwbyzd65p3bl6p4u@jpeg)
 
 
-- ### Project Part 2:
+### Project Checkpoint Part 2:
 
 - #### Implemented 3D Models with Textures
 For the main character there is a custom 3D model made with it's own accompanying texture 
