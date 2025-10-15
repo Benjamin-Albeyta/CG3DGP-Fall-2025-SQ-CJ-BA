@@ -81,11 +81,24 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 
 ### Project Part 2: 3D Scenes and Models (Ch 3+4, 10)
 
-- Create basic layout of a first real level using primatives
-- Continue to refine and improve the control feel (possibly implement a new move)
-- Get 3D models with textures for important objects (enemies, end level objective, player, Health pickups)
-- Implement a view change potion effect (more reasonable if working with textures and more defined geometry)
-- Create more of a game loop, transitions from level to level, a real game over and victory screen between levels
+- Create a level with terrain with a terrain tool or Probuilder, so that the world is not a flat plane.
+- ~~Implement 3D models with complete meshes and textures for important objects like your player, an enemy, and key objects in your environment. Remember to cite!~~
+- ~~Implement your view change potion and associated effect.~~
+- Instead of restarting the level, have the win condition load into a different scene that may be less polished than the first.
+- ~~Iterate on movement physics, especially the floaty jump and the option to vary your jump height based on hold length. Implementing slightly more control over the jump will suffice, as we are not looking for professional platformer physics here.~~
+
+### Additions
+- Created squash and stretch systems for main character movement
+- Created a system for moving platforms
+- Created a Death plane object prefab
+- Added the ability to wall jump as well as temporarily cling onto walls
+- Added some basic animations for items and collectables
+- Implemented a dropshadow for aiding the player in terms of perspective.
+
+### Project Part 3: Visual Effects (Ch 11, 12, 13)
+- Add a particle effects system for dash and when landing on the ground
+
+(need to check on what's needed here / need to finish this section of the readme) 
 
 ## Development
 
@@ -125,6 +138,58 @@ Created checks which cause the scene to reload upon fufilling conditions for win
 There is also the object for completing the level, a rectangle that appears red initally, and upon coming into contact with it, turns green and resets the scene, DoorGoal.cs
 ![End Level Object Red](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreifmni2sbb7ps76wozewqh7hnza65kdq7aactfn6ltr5hlxmb3cfdq@jpeg)
 ![End Level Object Green](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreia4u3yjdqtzgpgsm2ww7qxuwqxrvb6xpssiajbwbyzd65p3bl6p4u@jpeg)
+
+
+- ### Project Part 2:
+
+- #### Implemented 3D Models with Textures
+For the main character there is a custom 3D model made with it's own accompanying texture 
+![Main character texture model](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiejqb5gsxmh5hpdry37dmq6la33fmadjrsny7d5xrm7nb5hl6fmzu@jpeg)
+
+For objects, the "door" to end the level was changed to an alarm clock:
+![Clock/Door](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreido7abevwwzrfmkia6i6mutnar7b6vtoctmurw2ewokmsqquhbw3u@jpeg)
+The health pickup was made a heart:
+![Health pickup](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreifmqkfkq6vkkqpowiymbihb2i4l7ztwxcmqtu327ltuvdrnvubfmi@jpeg)
+the floating health indicators geometric rhombuses:
+![Health indicators](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiacep5elljg32sgtrgxtbntnb7ne3ej3xjyysr3gk7fd63r5v6qje@jpeg)
+and the view change potion was created as a potion:
+![View change potion](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreidb22me3tks43t7edj5qscwyuazb7nlafnox32muc2t3fk25dobku@jpeg)
+
+All of these models were taken from the BTAM Simple Gems and Items Ultimate Animated Customizable Pack; this pack also included a script for having the items rotate, float and scale, which I used to make the items appear more lively in game and to make the clock have it's own unique little pseudo animation when interacted with to symbolized the end of the level, which is contained within DoorGoal.cs
+https://assetstore.unity.com/packages/3d/props/simple-gems-and-items-ultimate-animated-customizable-pack-73764?srsltid=AfmBOoqZdxiQJteFKui1fd9VJjrpzbojcStyqMv8w2jnBsIbMm9LCYg8
+
+The enemy model, for the cactus dude, was taken from the Models Resource, a free use archive of models.
+https://models.spriters-resource.com/playstation/finalfantasy8/asset/286689
+![Cactuar](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreifgbmsb7ffmb2j7ayjsyhoasixnncl2lsddj2snhxxd7aceenuota@jpeg)
+
+- #### Implemented View Change Potion and Associated Effect
+Created the view change potion which when taken changes loaded textures in the level, the TextureChanger.cs is placed on the items who have their textures changed and TextureChangeItem.cs is placed on the view change potion itself.
+![Before](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiftyk43yixgtmw2qfo2f6dp3ouyznylslabkj63bcl5e2kr4of65e@jpeg)
+![After](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreigtb7zembpo7zpfavf3pl2mcige3jl5aandwge4g275l6ymh2hypa@jpeg)
+
+- #### Iterated on platformer movement and jump height
+Rewrote the player controller multiple times trying to get movement to feel just right, was eventually able to get it to a satisfactory level, max movement speed determined by an equation that raises drag the closer to maximum speed you are, jumping retains player control while not speeding them up or slowing them down in the air, variable jump heights based on how long the button is held was implemented through changing the player input system and instead of jump being a button press it was set to a button hold and release so that the input action could tell when the player let go of jump. Jump was made significantly less floaty due to the addition and reivsion of custom gravity initally it's own script but was eventually implemented into PlayerMovement.cs, upon initally rising up gravity is lowered before steadily increasing after the apex of the jump, until reaching the ground or the max gravitational value. 
+<video src="https://github.com/user-attachments/assets/327a79d2-bc12-4805-a426-3a0890471530"></video>
+
+In addition new abilities were added, specifically a wall cling and a wall jump. The wall cling is done by checking vectors for in front and to the sides of the character and checking for specifically marked walls, if there are some then the gravity is temporarily significantly reduced, while in this state a wall jump is then possible a certain set number of times until again touching the ground.
+<video src="https://github.com/user-attachments/assets/6f207148-bd2d-4a62-b551-74e001fa48b8"></video>
+
+- #### Added player dropshadow
+A common feature in 3D platformers, a dropshadow allows the player to see where they're landing, this was accomplished by creating an all black texture on a plane, then removing the plane's collision and making it follow under the player at whatever level is directly below them as determined by a vector; this is contained within the ShadowProjector.cs script.
+<video src="https://github.com/user-attachments/assets/95d58a8a-5f3b-404f-b5c1-a747cc5f8975"></video>
+
+- #### Created a System for moving platforms and a death plane
+Just basic aspects of any platformer that I felt were necessary to have at least as options, the death plane simply instantly calls the player death when made contact with and is contained within DeathPlane.cs.
+<video src="https://github.com/user-attachments/assets/4f4c5832-f0d0-4b96-95eb-80e3db57e307"></video>
+
+The moving platform follows the same basic structure as the enemy prefab, moving between two set points on the scene as determined by Point A and Point B. Contained within MovingPlatform.cs
+<video src="https://github.com/user-attachments/assets/40066146-d93f-4ab6-9d7e-64f3feccd538"></video>
+
+- #### Added player squash and stretch
+Inspired by the premade script from some of the used textures, created a script that changes the player model based on squash and stretch when jumping, landing from a jump and dashing. Was easy to implement from the side of PlayerMovement.cs because those checks prexist, and simply called on the newly created PlayerSquashStretch.cs. One issue that did arise was squash bringing the player slightly into the air because it would shrink them based on their origin, to solve this I used the point for Feet that already existed as a part of the ground check and made the model a child of that, so when the feet were transformed it applied that as the origin of transformation to the model iself resolving the issue.
+<video src="https://github.com/user-attachments/assets/dd4f4a92-3911-4071-902b-4f436a67c72c"></video>
+
+
 
 # Running Instructions
 - Build and Run to load the scene (currently everything contained within one test scene)
