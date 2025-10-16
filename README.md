@@ -208,4 +208,4 @@ Created levels, using prefabs and probuilder which the player transitions betwee
 - Space to jump
 - Mouse controls camera movement
 - Losing all health results in reloading the scene with a unique message in the console
-- Completing the objective by touching the clock results in the scene reloading from the start
+- Completing the objective by touching the clock results in moving to the next level / scene
