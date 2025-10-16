@@ -81,10 +81,10 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 
 ### Project Part 2: 3D Scenes and Models (Ch 3+4, 10)
 
-- Create a level with terrain with a terrain tool or Probuilder, so that the world is not a flat plane.
+- ~~Create a level with terrain with a terrain tool or Probuilder, so that the world is not a flat plane.~~
 - ~~Implement 3D models with complete meshes and textures for important objects like your player, an enemy, and key objects in your environment. Remember to cite!~~
 - ~~Implement your view change potion and associated effect.~~
-- Instead of restarting the level, have the win condition load into a different scene that may be less polished than the first.
+- ~~Instead of restarting the level, have the win condition load into a different scene that may be less polished than the first.~~
 - ~~Iterate on movement physics, especially the floaty jump and the option to vary your jump height based on hold length. Implementing slightly more control over the jump will suffice, as we are not looking for professional platformer physics here.~~
 
 ### Additions
@@ -97,6 +97,11 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 
 ### Project Part 3: Visual Effects (Ch 11, 12, 13)
 - Add a particle effects system for dash and when landing on the ground
+- Add some post processing effects to elements in the levels
+- Apply and organize unique lighting
+- Create a new level and finish the current work in progress level
+- Overhaul how damage taken works (add period where you lose control)
+- Create new second type of enemy with more advanced pathfinding
 
 (need to check on what's needed here / need to finish this section of the readme) 
 
@@ -189,13 +194,18 @@ The moving platform follows the same basic structure as the enemy prefab, moving
 Inspired by the premade script from some of the used textures, created a script that changes the player model based on squash and stretch when jumping, landing from a jump and dashing. Was easy to implement from the side of PlayerMovement.cs because those checks prexist, and simply called on the newly created PlayerSquashStretch.cs. One issue that did arise was squash bringing the player slightly into the air because it would shrink them based on their origin, to solve this I used the point for Feet that already existed as a part of the ground check and made the model a child of that, so when the feet were transformed it applied that as the origin of transformation to the model iself resolving the issue.
 <video src="https://github.com/user-attachments/assets/dd4f4a92-3911-4071-902b-4f436a67c72c"></video>
 
+- #### Created levels & means to move between them 
+Created levels, using prefabs and probuilder which the player transitions between when reaching the goal, currently only 2 levels. If there are no remaining levels currently there is an option to loop back to the first level that is ticked by default, the level migration script is in GameManager.cs.
+![Level 1](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreic7qdijjaeqjyhjo2kfb5bq7ypi23wwezjlpkjsalrs64lqhz7gzu@jpeg)
+![Level 2](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiborzm6riqarrsbbp6dht3myb3hkya6xamp23n2fkecrxg3enjsku@jpeg)
+
 
 
 # Running Instructions
-- Build and Run to load the scene (currently everything contained within one test scene)
+- Build and Run to load the scene (reaching the alarm clock will transition between scenes)
 - WASD to move
 - Shift to dash
 - Space to jump
 - Mouse controls camera movement
 - Losing all health results in reloading the scene with a unique message in the console
-- Completing the objective by touching the object results in reloading the scene and the object turning green
+- Completing the objective by touching the clock results in the scene reloading from the start
