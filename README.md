@@ -96,14 +96,14 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 - Implemented a dropshadow for aiding the player in terms of perspective.
 
 ### Project Part 3: Visual Effects (Ch 11, 12, 13)
-- Add a particle effects system for dash and when landing on the ground
-- Add some post processing effects to elements in the levels
-- Apply and organize unique lighting
-- Create a new level and finish the current work in progress level
-- Overhaul how damage taken works (add period where you lose control)
-- Create new second type of enemy with more advanced pathfinding
+- For improvement, add a visual indicator for invincibility frames to make player feedback clearer.
+- Adding a few extra environmental details could make it feel more complete, like some unreachable floating islands in the distance that is slightly more “terrain-like” and less like a flat plane.
+- Add post-processing for ambient tone and visual cohesion for your dream-like mood stated in the GDD.
+- Include particle effects for movement, like dust during wall jumps.
+- Refine lighting around the level to bring more depth and focus to the environment.
 
-(need to check on what's needed here / need to finish this section of the readme) 
+
+(Still want to add period where you lose control upon being hit, plus the other type of particle effects and etc)
 
 ## Development
 
