@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerSquashStretch squashStretch;
 
-    private float fallThreshold = -2f;
+    private float fallThreshold = -10f;
 
 
     private void Awake()
