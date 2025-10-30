@@ -75,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Particle Systems")]
     public ParticleSystem dustParticles; // Assign in Inspector
+    public ParticleSystem landingParticles;
 
 
     private Rigidbody rb;
@@ -286,6 +287,13 @@ public class PlayerMovement : MonoBehaviour
         {
             squashStretch?.SquashVertical(); // compress on landing
             StartCoroutine(ResetSquashAfterFrames(10));
+
+            // --- Landing Particles ---
+            if (landingParticles != null)
+            {
+                landingParticles.transform.position = groundCheck.position; // place at feet
+                landingParticles.Play();
+            }
 
         }
         // --- DASH EFFECT ---

@@ -121,7 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97f095428c6e44b0812585129e9e882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorRenderer: {fileID: 0}
   reloadDelay: 0.6
   Clock: {fileID: 7200430443101849710}
 --- !u!1001 &1115919238408979590
