@@ -2,8 +2,10 @@
   * Author: Benjamin Albeyta
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 9/20/2025
-  * Date Last Updated: 10/14/2025
+  * Date Last Updated: 10/30/2025
   * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4, also handles gravity and calls PlayerSquashStretch.cs
+
+  * Update: added a function for handling player movement lockouts.
   */
 
 using System.Collections;
@@ -17,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     public float rotateSpeed = 5f;
     public float maxSpeed = 10f;
     public float airControl = 5f;
+    private bool isMovementLocked = false;
+
 
     [Header("Drag Settings")]
     public float baseGroundDrag = 0.0001f;
@@ -69,6 +73,9 @@ public class PlayerMovement : MonoBehaviour
     public float peakGravityDelay = 0.05f;   // Short delay at jump peak
     private bool peakGravityApplied = false; // track if peak gravity coroutine started
 
+    [Header("Particle Systems")]
+    public ParticleSystem dustParticles; // Assign in Inspector
+
 
     private Rigidbody rb;
     private Vector2 movementValue;
@@ -106,10 +113,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void OnMove(InputValue value) => movementValue = value.Get<Vector2>();
+    public void OnMove(InputValue value)
+    {
+        if (isMovementLocked) return;
+
+        movementValue = value.Get<Vector2>();
+    }
+
 
     public void OnJump(InputValue value)
     {
+
+        if (isMovementLocked) return;
+
         jumpHeld = value.isPressed;
 
         // --- Normal ground jump ---
@@ -121,8 +137,6 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(Vector3.up * initalJumpForce, ForceMode.Impulse);
             currentHoldForce = holdForce;
-
-            //squashStretch?.StretchVertical(); // elongate upward
 
             Debug.Log("Jump Started (ground)");
         }
@@ -144,6 +158,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnDash(InputValue value)
     {
+        if (isMovementLocked) return;
+
         if (value.isPressed && canDash)
         {
             Vector3 camForward = Vector3.ProjectOnPlane(cameraTransform.forward, Vector3.up).normalized;
@@ -247,6 +263,20 @@ public class PlayerMovement : MonoBehaviour
         {
             remainingWallJumps = maxWallJumps;
             wallClingTimer = 0f;
+
+            if (!dustParticles.isPlaying)
+            {
+                dustParticles.Play();
+                Debug.Log("Start particles");
+            }
+        }
+        else
+        {
+            if (dustParticles.isPlaying)
+            {
+                dustParticles.Stop();
+                Debug.Log("Stop particles");
+            }
         }
 
         if (!isTouchingWall) wallClingTimer = 0f;
@@ -256,8 +286,8 @@ public class PlayerMovement : MonoBehaviour
         {
             squashStretch?.SquashVertical(); // compress on landing
             StartCoroutine(ResetSquashAfterFrames(10));
-        }
 
+        }
         // --- DASH EFFECT ---
         if (isDashing)
         {
@@ -305,10 +335,6 @@ public class PlayerMovement : MonoBehaviour
 
         squashStretch?.ResetScale();
     }
-
-
-
-        
 
 
     private void HandleMovement()
@@ -550,4 +576,23 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
+
+    //For situations where the player can't move, locks out movement for a specified duration
+    public void MovementLockOut(float duration)
+    {
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(MovementLockOutRoutine(duration));
+    }
+
+
+    private IEnumerator MovementLockOutRoutine(float duration)
+    {
+        isMovementLocked = true;
+        movementValue = Vector2.zero; // clear any current input
+        jumpHeld = false;
+        yield return new WaitForSeconds(duration);
+        isMovementLocked = false;
+    }
+
+
 } 

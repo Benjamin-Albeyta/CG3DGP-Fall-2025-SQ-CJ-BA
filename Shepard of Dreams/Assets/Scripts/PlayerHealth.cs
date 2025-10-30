@@ -2,12 +2,15 @@
   * Author: Benjamin Albeyta, Sophia Qian 
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 10/4/2025
-  * Date Last Updated: 10/11/2025
+  * Date Last Updated: 10/30/2025
   * Summary: Keeps track of the players health as denoted by a series of orbs surrounding the player
+
+  * Update: Added the player flashing for the duration of their invincibility and a lockout period when hit 
   */
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -24,11 +27,20 @@ public class PlayerHealth : MonoBehaviour
     public float invincibilityTime = 1.0f;  // seconds of invulnerability
     private bool isInvincible = false;
     private float invincibleTimer = 0f;
+  [Header("Flash Settings")]
+    public GameObject playerModel;          // Assign the player's visual model here
+    public float flashInterval = 0.1f;
+
+    private Renderer[] modelRenderers;      // Cached renderers to toggle visibility
 
     private void Start()
     {
         currentHealth = maxHealth;
         SpawnHealthObjects();
+
+        // Get all renderers from the player model
+        if (playerModel != null)
+            modelRenderers = playerModel.GetComponentsInChildren<Renderer>();
     }
 
     private void Update()
@@ -53,6 +65,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    //Processes taking damage including flashing the player and locking out movement
     public void TakeDamage()
     {
         if (isInvincible) return;
@@ -68,6 +81,10 @@ public class PlayerHealth : MonoBehaviour
             {
                 healthObjects[currentHealth].SetActive(false);
             }
+
+            // Start flashing coroutine
+            if (playerModel != null)
+                StartCoroutine(FlashDuringInvincibility());
         }
         else
         {
@@ -77,6 +94,30 @@ public class PlayerHealth : MonoBehaviour
                 GameManager.Instance.PlayerDied();
             }
         }
+
+        GetComponent<PlayerMovement>().MovementLockOut(0.5f);
+    }
+
+    private IEnumerator FlashDuringInvincibility()
+    {
+        bool visible = true;
+
+        while (invincibleTimer > 0f)
+        {
+            visible = !visible;
+            SetModelVisibility(visible);
+            yield return new WaitForSeconds(flashInterval);
+        }
+
+        // Ensure the model is visible at the end
+        SetModelVisibility(true);
+    }
+
+    private void SetModelVisibility(bool visible)
+    {
+        if (modelRenderers == null) return;
+        foreach (var rend in modelRenderers)
+            rend.enabled = visible;
     }
 
     public void RestoreHealth(int amount)
