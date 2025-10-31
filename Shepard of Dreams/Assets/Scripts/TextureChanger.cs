@@ -16,31 +16,41 @@ public class TextureChanger : MonoBehaviour
     [Tooltip("The new material or texture to apply when triggered.")]
     public Material newMaterial;
 
+    [Tooltip("The object to show when triggered (e.g., the moving plane).")]
+    public GameObject objectToShow;
+
+    [Tooltip("Hide objectToShow at start (Play) for safety.")]
+    public bool hideAtStart = true;
+
     private Material originalMaterial;
 
     private void Awake()
     {
-
-        //When awake get the current component
-        if (targetRenderer == null)
-            targetRenderer = GetComponent<Renderer>();
-
-        originalMaterial = targetRenderer.material;
-    }
-
-    //When executed changes texture
-    public void ChangeTexture()
-    {
-        if (newMaterial != null)
+        if (hideAtStart && objectToShow != null)
         {
-            targetRenderer.material = newMaterial;
+            objectToShow.SetActive(false);
         }
     }
+
+
+    //When executed activate the moving platform
+    public void ChangeTexture()
+    {
+        if (objectToShow != null)
+        {
+            objectToShow.SetActive(true);
+        }
+    }
+
+
 
 
     //When executed resets textures back to original state 
     public void ResetTexture()
     {
-        targetRenderer.material = originalMaterial;
+        if (objectToShow != null)
+        {
+            objectToShow.SetActive(false);
+        }
     }
 }
