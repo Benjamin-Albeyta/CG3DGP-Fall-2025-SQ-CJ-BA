@@ -96,14 +96,26 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 - Implemented a dropshadow for aiding the player in terms of perspective.
 
 ### Project Part 3: Visual Effects (Ch 11, 12, 13)
-- For improvement, add a visual indicator for invincibility frames to make player feedback clearer.
-- Adding a few extra environmental details could make it feel more complete, like some unreachable floating islands in the distance that is slightly more “terrain-like” and less like a flat plane.
-- Add post-processing for ambient tone and visual cohesion for your dream-like mood stated in the GDD.
-- Include particle effects for movement, like dust during wall jumps.
-- Refine lighting around the level to bring more depth and focus to the environment.
+- ~~For improvement, add a visual indicator for invincibility frames to make player feedback clearer.~~
+- ~~Adding a few extra environmental details could make it feel more complete, like some unreachable floating islands in the distance that is slightly more “terrain-like” and less like a flat plane.~~
+- ~~Add post-processing for ambient tone and visual cohesion for your dream-like mood stated in the GDD.~~
+- ~~Include particle effects for movement, like dust during wall jumps.~~
+- ~~Refine lighting around the level to bring more depth and focus to the environment.~~
+- ~~Add period where you lose control after being hit~~
 
+### Additions
+- Updated moving platforms so they carry momentum properly
+- Added particle effects for landing after jumps and for moving around
+- Slightly revised first level structure
+- Created prefab for object cubes that can be used
+- Changed hitbox on cloud platforms so easier to read
 
-(Still want to add period where you lose control upon being hit, plus the other type of particle effects and etc)
+### Project Part 4: 
+- Add a main menu with UI elements
+- Add music for the background
+- Add sound effects for jumping, getting hit, running
+- Add animations for the main character
+- Revise view change potion so it does something more productive
 
 ## Development
 
@@ -199,7 +211,30 @@ Created levels, using prefabs and probuilder which the player transitions betwee
 ![Level 1](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreic7qdijjaeqjyhjo2kfb5bq7ypi23wwezjlpkjsalrs64lqhz7gzu@jpeg)
 ![Level 2](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiborzm6riqarrsbbp6dht3myb3hkya6xamp23n2fkecrxg3enjsku@jpeg)
 
+### Project Checkpoint 3:
+- #### Made moving platforms correctly carry players momentum
 
+- #### Changed textures and added terrain for background of level 1
+
+- #### Added flashing effect during invincibility period
+
+- #### Added script for a lockout period after being hit
+
+- #### Added Custom Shader for player
+
+- #### Added Custom renderer for enviorment and objects
+
+- #### Added Lighting Effects and prebaked lighting in level with static objects
+
+- #### Added post processing effects (shadows midtones, chromatic abberation, bloom)
+
+- #### Added prefab for platforms
+
+- #### Added particle effects on running
+
+- #### Added particle effects on landing after a jump
+
+- #### Changed hitbox on cloud platforms
 
 # Running Instructions
 - Build and Run to load the scene (reaching the alarm clock will transition between scenes)
