@@ -2,10 +2,10 @@
   * Author: Benjamin Albeyta, Sophia Qian 
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 10/4/2025
-  * Date Last Updated: 10/30/2025
+  * Date Last Updated: 11/10/2025
   * Summary: Keeps track of the players health as denoted by a series of orbs surrounding the player
 
-  * Update: Added the player flashing for the duration of their invincibility and a lockout period when hit 
+  * Update: Added handling animations for when hit
   */
 
 using UnityEngine;
@@ -33,10 +33,16 @@ public class PlayerHealth : MonoBehaviour
 
     private Renderer[] modelRenderers;      // Cached renderers to toggle visibility
 
+    private Animator animator;
+
     private void Start()
     {
         currentHealth = maxHealth;
         SpawnHealthObjects();
+
+        //Gets the animator component
+        animator = GetComponentInChildren<Animator>();
+        animator.SetBool("Damage State", false);
 
         // Get all renderers from the player model
         if (playerModel != null)
@@ -70,11 +76,14 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isInvincible) return;
 
+
         if (currentHealth > 0)
         {
             currentHealth--;
             isInvincible = true;
             invincibleTimer = invincibilityTime;
+
+            animator.SetBool("Damage State", true);
 
             // Disable the health object instead of destroying it
             if (healthObjects[currentHealth] != null)
@@ -110,6 +119,8 @@ public class PlayerHealth : MonoBehaviour
         }
 
         // Ensure the model is visible at the end
+
+        animator.SetBool("Damage State", false);
         SetModelVisibility(true);
     }
 

@@ -2,10 +2,10 @@
   * Author: Benjamin Albeyta
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 9/20/2025
-  * Date Last Updated: 10/30/2025
+  * Date Last Updated: 11/10/2025
   * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4, also handles gravity and calls PlayerSquashStretch.cs
 
-  * Update: added a function for handling player movement lockouts.
+  * Update: Added handling animations
   */
 
 using System.Collections;
@@ -94,7 +94,10 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerSquashStretch squashStretch;
 
+    private Animator animator;
+
     private float fallThreshold = -10f;
+
 
 
     private void Awake()
@@ -112,6 +115,10 @@ public class PlayerMovement : MonoBehaviour
             foreach (var indicator in dashIndicators)
                 if (indicator != null) indicator.SetActive(false);
         }
+
+        //Gets the animator component
+        animator = GetComponentInChildren<Animator>();
+
     }
 
     public void OnMove(InputValue value)
@@ -259,6 +266,9 @@ public class PlayerMovement : MonoBehaviour
 
         CheckForWall();
 
+        float horizontalSpeed = new Vector3(rb.velocity.x, 0f, rb.velocity.z).magnitude;
+        animator.SetFloat("Velocity", horizontalSpeed);
+
         // Reset wall jumps on landing
         if (isGrounded)
         {
@@ -278,6 +288,7 @@ public class PlayerMovement : MonoBehaviour
                 dustParticles.Stop();
                 Debug.Log("Stop particles");
             }
+            animator.SetBool("In Air", true);
         }
 
         if (!isTouchingWall) wallClingTimer = 0f;
@@ -285,6 +296,8 @@ public class PlayerMovement : MonoBehaviour
         // --- LANDING EFFECT ---
         if (isGrounded && !wasGrounded)
         {
+            animator.SetBool("Jumping", false);
+            animator.SetBool("In Air", false);
             squashStretch?.SquashVertical(); // compress on landing
             StartCoroutine(ResetSquashAfterFrames(10));
 
@@ -299,6 +312,7 @@ public class PlayerMovement : MonoBehaviour
         // --- DASH EFFECT ---
         if (isDashing)
         {
+            animator.SetBool("Dashing", true);
             squashStretch?.SquashVertical(); // squash horizontally while dashing
         }
 
@@ -409,6 +423,8 @@ public class PlayerMovement : MonoBehaviour
         // Confirm lift-off (once actually not grounded)
         if (jumpStarted && !hasLeftGround && !isGrounded)
         {
+            animator.SetBool("Jumping", true);
+            animator.SetBool("In Air", true);
             hasLeftGround = true;
             Debug.Log("Lift-off confirmed");
             squashStretch?.StretchVertical(); // elongate upward
@@ -425,6 +441,8 @@ public class PlayerMovement : MonoBehaviour
         // Reset jump when landing
         if (isGrounded && !wasGrounded)
         {
+            animator.SetBool("Jumping", false);
+            animator.SetBool("In Air", false);
             jumpStarted = false;
             hasLeftGround = false;
             currentHoldForce = 0f;
@@ -562,6 +580,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         isDashing = false;
+        animator.SetBool("Dashing", false);
         StartCoroutine(ResetStretchAfterDelay(0.1f));
     }
 

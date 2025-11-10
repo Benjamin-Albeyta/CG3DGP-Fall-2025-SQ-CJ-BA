@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float pushBackForce = 5f;  // How hard the enemy pushes the player back
+    public float pushBackForce = 20f;  // How hard the enemy pushes the player back
 
     private void OnCollisionEnter(Collision collision)
     {
