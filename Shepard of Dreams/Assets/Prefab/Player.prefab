@@ -9893,6 +9893,7 @@ Transform:
   m_Children:
   - {fileID: 2980447014254306684}
   - {fileID: 1008180071941974404}
+  - {fileID: 597217278708072803}
   - {fileID: 3367787206234398961}
   m_Father: {fileID: 8159798670409555759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10565,11 +10566,85 @@ MonoBehaviour:
   collisionRadius: 0.3
   collisionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   zoomSpeed: 10
   zoomSmoothSpeed: 10
   zoomMin: 2
   zoomMax: 10
+--- !u!1001 &1135756539389519496
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8026517015158122367}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+        type: 3}
+      propertyPath: m_Name
+      value: Sheep Animation Test 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e103c1f17dc9d940ae7ee31b7f254a9, type: 3}
+--- !u!4 &597217278708072803 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6e103c1f17dc9d940ae7ee31b7f254a9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1135756539389519496}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1432064928647335218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10757,6 +10832,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Sheep V18 Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e42e8e8a8b15e3c4ab252877b5bd36b5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

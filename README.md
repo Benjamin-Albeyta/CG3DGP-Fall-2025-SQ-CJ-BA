@@ -109,13 +109,13 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 - Slightly revised first level structure
 - Created prefab for object cubes that can be used
 - Changed hitbox on cloud platforms so easier to read
-- Revised View Change potion so it instead spawns a platform
 
 ### Project Part 4: 
 - Add a main menu with UI elements
 - Add music for the background
 - Add sound effects for jumping, getting hit, running
 - Add animations for the main character
+- Revise view change potion so it does something more productive
 
 ## Development
 
@@ -213,54 +213,28 @@ Created levels, using prefabs and probuilder which the player transitions betwee
 
 ### Project Checkpoint 3:
 - #### Made moving platforms correctly carry players momentum
-Updated the script for MovingPlatform.cs so that it carries the players momentum more, by when the player makes contact with the platform it makes the player a child of the platform temporarily.
-<video src="https://github.com/user-attachments/assets/37240734-7b75-482f-a32e-38f481dc8c1b"></video>
 
 - #### Changed textures and added terrain for background of level 1
-Revised the texture and added terrain in the background so the level feels more complete and dreamlike in terms of its structure.
-![Level 1 Revised](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiftoq7jvb7e4qj6ctxx2y4nmuipr6td3mqbapqj34os26yvnaox3u@jpeg)
 
-- #### Added flashing effect during invincibility period and a script for a lockout period after being hit
-For the sake of the player being more easily able to view the period, implemented in the PlayerHealth.cs script, attach the model in the inspector and flashes it for a period of time, by getting all rendered objects attached to it and changing their visibility. Changes located in PlayerHealth.cs.
-<video src="https://github.com/user-attachments/assets/229488e5-a1d0-4c33-ac5a-d4f113abf4de"></video>
+- #### Added flashing effect during invincibility period
+
+- #### Added script for a lockout period after being hit
 
 - #### Added Custom Shader for player
-Created a custom cell shader for the player, specifically changes shading based on specific sections of the player, improves performance and makes a generally interesting and cartoony look. Currently only applied to the player texture, might be applied to others later on and is in PlayerMaterial.mat
-![Player Cel Shading](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreibxzrbctqglym7shqygstenlrhqjgmz2j3wyloj4ccmcfnfm56xci@jpeg)
-![Player Cel Shading Graph](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreifj3ma5wg2nrg6nl73dviff2lbmfplw2p5gjfagyug33joecsdoy4@jpeg)
 
-- #### Added Custom fullscreen shader for enviorment and objects
-Fullscreen shader that creates an outline on every visible object in the scene. Thickness of outline depends on distance from camera and from player. Located in FullscreenOutline.mat.
-![Fullscreen shader](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiadjrm6iqq4w72o6v7igksjzjrhzloldoacilo3q3q3szxtrwuxre@jpeg)
-![Fullscreen shading graph](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreigtmanvbwtdl5k5zxvsapmyi4bhvp3qlrgdkydxepbenm6hhga4iu@jpeg)
+- #### Added Custom renderer for enviorment and objects
 
 - #### Added Lighting Effects and prebaked lighting in level with static objects
-Made most of the level geometry static, including the terrain, only the moving platform and objects aren't static objects for increasing performance, also generated the lightmap which is located in the Level1 folder and edited the lighting settings to be generally lower resolution to add to the dreamlike quality of the game. 
-![Level1 Lighting](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreibqdma4a52tq55nm7myaipfl7os77gubgxv2hwz5acihkg5p36ozq@jpeg)
 
 - #### Added post processing effects (shadows midtones, chromatic abberation, bloom)
-Effects were added and used in SampleSceneProfile.asset, added some bloom, changed the coloration of shadows and midtones and a small amount of added chromatic abberation.
-![Level1 Post Processing](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreienhrdtyjni3mcvugqpmzmnyfahm46spx2b7rd6yiswg3rpy4ctee@jpeg)
 
 - #### Added prefab for platforms
-Created a prefab for square platforms where the sides are walls that can be walljumped, while the top is ground.
-![Platform prefab](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiftyqa5fwi3xuhmeket5q2sqzzvvkhxsl4yqlzjdcbxcj37gpnbzi@jpeg)
 
 - #### Added particle effects on running
-Created a custom mesh and then used that mesh to be spawned via particle system Feet Dust attached to the player object. Spawns when moving on the ground through logic and checks in PlayerMovement.cs
-<video src="https://github.com/user-attachments/assets/8abb312f-fa8d-4106-bce7-b776a52a4044"></video>
 
 - #### Added particle effects on landing after a jump
-Used that same custom mesh but smaller to spawn particles via particle system Landing particles attached to the player object, spawns upon landing on the ground through updates to PlayerMovement.cs
-<video src="https://github.com/user-attachments/assets/4551f1a8-7062-416e-8e1d-f555ded9d958"></video>
 
-- #### Changed hitbox on cloud platform prefab
-Revised the hitbox on the cloud platforms just so that they more properly match the player and don't result in as much weird collision.
-![Cloud platform](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreiepulxxpen4cle6a76co3punfrpsd6mvzgcsupkuvo5vcpkwhgq4u@jpeg)
-
-- #### Revised view change potion
-Revised the view change potion so that instead of changing view it spawns the moving platform, made it so that it interacts with a Level Event object that can be used to control objects through the Texture scrips, changes implemented in TextureChanger.cs and TextureChangeItem.cs
-<video src="https://github.com/user-attachments/assets/6acfb37f-0ab5-4150-881a-b3c435bfb4ee"></video>
+- #### Changed hitbox on cloud platforms
 
 # Running Instructions
 - Build and Run to load the scene (reaching the alarm clock will transition between scenes)
