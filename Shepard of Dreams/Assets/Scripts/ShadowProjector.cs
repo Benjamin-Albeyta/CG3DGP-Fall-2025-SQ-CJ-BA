@@ -12,6 +12,7 @@ using UnityEngine.InputSystem;
 
 public class ShadowCaster : MonoBehaviour
 {
+    
     [Header("References")]
     [Tooltip("The player or object casting the shadow.")]
     public Transform player;
@@ -59,7 +60,7 @@ public class ShadowCaster : MonoBehaviour
         Vector3 origin = player.position + Vector3.up * 0.1f;
 
         // Cast ray downward
-        if (Physics.Raycast(origin, Vector3.down, out hit, maxDistance, groundLayer))
+        if (Physics.Raycast(origin, Vector3.down, out hit, maxDistance, groundLayer, QueryTriggerInteraction.Ignore))
         {
             shadowInstance.SetActive(true);
 
@@ -85,6 +86,6 @@ public class ShadowCaster : MonoBehaviour
         {
             shadowInstance.SetActive(false);
         }
-    }
+    } 
 }
 

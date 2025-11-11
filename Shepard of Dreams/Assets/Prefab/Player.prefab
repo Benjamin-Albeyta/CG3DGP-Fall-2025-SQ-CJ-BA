@@ -10068,6 +10068,8 @@ MonoBehaviour:
   peakGravityDelay: 0.0001
   dustParticles: {fileID: 7317788905160186398}
   landingParticles: {fileID: 796130224759476347}
+  dashGhostMaterial: {fileID: 2100000, guid: 77f448bca71328f4791deb4c39dfff17, type: 2}
+  ghostDuration: 0.4
 --- !u!114 &1828100877997329011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10252,7 +10254,7 @@ MonoBehaviour:
   maxDistance: 50
   groundLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   positionOffset: {x: 0, y: 0.01, z: 0}
   baseScale: {x: 0.2, y: 0.2, z: 0.2}
   scaleWithHeight: 1

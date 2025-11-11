@@ -5,7 +5,7 @@
   * Date Last Updated: 11/10/2025
   * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4, also handles gravity and calls PlayerSquashStretch.cs
 
-  * Update: Added handling animations
+  * Update: Added handling animations and the unique dash checks for the dash effect
   */
 
 using System.Collections;
@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
     public float dashCooldown = 5f;
     public GameObject[] dashIndicators;
 
+    private MeshRenderer[] skinnedMeshRenderers;
+
     [Header("References")]
     public Transform groundCheck;
     public float groundDistance = 0.2f;
@@ -98,6 +100,12 @@ public class PlayerMovement : MonoBehaviour
 
     private float fallThreshold = -10f;
 
+    [Header("Dash Effect")]
+    public Material dashGhostMaterial;
+    public float ghostDuration;
+    Transform modelVisual;
+
+
 
 
     private void Awake()
@@ -108,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
 
         //Gets the squash and stretch component to be used
         squashStretch = GetComponent<PlayerSquashStretch>();
+
+        modelVisual = transform.Find("Feet Ground idea");
 
         //makes sure that the dash indicators (horns) are properly instantiated at the start 
         if (dashIndicators != null)
@@ -576,6 +586,39 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(dashDir * dashForce, ForceMode.Force);
             timer += Time.fixedDeltaTime;
+            if (skinnedMeshRenderers == null)
+            {
+                
+
+                skinnedMeshRenderers = modelVisual.GetComponentsInChildren<MeshRenderer>();
+            }
+
+            Debug.Log(skinnedMeshRenderers);
+
+            for (int i = 0; i < skinnedMeshRenderers.Length; i++)
+            {
+                MeshFilter meshFilter = skinnedMeshRenderers[i].GetComponent<MeshFilter>();
+                if (meshFilter == null || meshFilter.sharedMesh == null)
+                    continue; // skip if there's no mesh to copy
+
+                GameObject Trail = new GameObject("DashTrail");
+                MeshRenderer mr = Trail.AddComponent<MeshRenderer>();
+                MeshFilter mf = Trail.AddComponent<MeshFilter>();
+
+                // Copy mesh and material from the original model
+                mf.mesh = meshFilter.sharedMesh;
+                mr.material = dashGhostMaterial;
+
+                // Match transform so the ghost mesh spawns in the same place
+                Trail.transform.position = skinnedMeshRenderers[i].transform.position;
+                Trail.transform.rotation = skinnedMeshRenderers[i].transform.rotation;
+                Trail.transform.localScale = skinnedMeshRenderers[i].transform.lossyScale;
+
+                // Auto-destroy after a short delay
+                //Destroy(Trail, 0.4f);
+                Trail.AddComponent<FadeOut>().duration = ghostDuration;
+            }
+
             yield return new WaitForFixedUpdate();
         }
 
