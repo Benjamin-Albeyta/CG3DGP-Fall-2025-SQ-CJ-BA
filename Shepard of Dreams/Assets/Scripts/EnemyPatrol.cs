@@ -18,6 +18,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private Transform targetPoint;   // Current target
     private float waitTimer;
+    private bool isPaused = false;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class EnemyPatrol : MonoBehaviour
 
     private void Update()
     {
-        if (targetPoint == null || pointA == null || pointB == null) return;
+        if (isPaused || targetPoint == null || pointA == null || pointB == null) return;
 
         // Move towards the target
         transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
@@ -51,5 +52,16 @@ public class EnemyPatrol : MonoBehaviour
         {
             transform.forward = dir;
         }
+    }
+
+    //New methods for pausing/resuming patrol
+    public void Pause()
+    {
+        isPaused = true;
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
     }
 }

@@ -17,7 +17,9 @@ public class DoorGoal : MonoBehaviour
 
     public GameObject Clock;
 
-    private SimpleGemsAnim clockScript;        
+    private SimpleGemsAnim clockScript;
+
+    public AudioSource alarmClock;  
 
     void Reset()
     {
@@ -40,6 +42,7 @@ public class DoorGoal : MonoBehaviour
         Debug.Log("[Goal] Door touched -> Win");
         clockScript.isRotating = true;
         clockScript.isFloating = true;
+        alarmClock.Play();
         StartCoroutine(WinRoutine());
     }
 

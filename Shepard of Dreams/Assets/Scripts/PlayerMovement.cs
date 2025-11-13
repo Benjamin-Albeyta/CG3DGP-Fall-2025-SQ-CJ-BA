@@ -105,6 +105,10 @@ public class PlayerMovement : MonoBehaviour
     public float ghostDuration;
     Transform modelVisual;
 
+    [Header("Sound Effects")]
+    public AudioSource DashSFX;
+    public AudioSource JumpSFX;
+
 
 
 
@@ -155,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(Vector3.up * initalJumpForce, ForceMode.Impulse);
             currentHoldForce = holdForce;
+            JumpSFX.Play();
 
             Debug.Log("Jump Started (ground)");
         }
@@ -162,7 +167,8 @@ public class PlayerMovement : MonoBehaviour
         else if (!isGrounded && isTouchingWall && remainingWallJumps > 0)
         {
             DoWallJump();
-            squashStretch?.StretchVertical(); // optional, adds visual pop on wall jump
+            JumpSFX.Play();
+            squashStretch?.StretchVertical();
         }
 
         if (!jumpHeld && jumpStarted)
@@ -188,6 +194,7 @@ public class PlayerMovement : MonoBehaviour
 
             // Flatten dashDir so it always ignores slope steepness
             dashDir = Vector3.ProjectOnPlane(moveDir, Vector3.up).normalized;
+            DashSFX.Play();
 
             StartCoroutine(DashRoutine());
             StartCoroutine(DashCooldownRoutine());

@@ -13,6 +13,9 @@ public class TextureChangeItem : MonoBehaviour
     [Tooltip("The object whose texture will change when collected.")]
     public TextureChanger target;
 
+    [Tooltip("The sound effect that will play when the object appears.")]
+    public AudioSource poofSound;
+
     private void OnTriggerEnter(Collider other)
     {
         // Only trigger when the player touches it
@@ -25,6 +28,8 @@ public class TextureChangeItem : MonoBehaviour
 
             // Destroy the item after collection
             Destroy(gameObject);
+
+            poofSound.Play();
         }
     }
 }

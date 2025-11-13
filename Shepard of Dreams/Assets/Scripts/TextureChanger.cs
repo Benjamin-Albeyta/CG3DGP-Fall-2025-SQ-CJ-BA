@@ -29,6 +29,7 @@ public class TextureChanger : MonoBehaviour
         if (hideAtStart && objectToShow != null)
         {
             objectToShow.SetActive(false);
+
         }
     }
 
