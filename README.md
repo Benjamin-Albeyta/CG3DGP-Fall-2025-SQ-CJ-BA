@@ -111,11 +111,15 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 - Changed hitbox on cloud platforms so easier to read
 - Revised View Change potion so it instead spawns a platform
 
-### Project Part 4: 
-- Add a main menu with UI elements
-- Add music for the background
-- Add sound effects for jumping, getting hit, running
-- Add animations for the main character
+### Project Part 3-4 (Sound, UI and Animation): 
+- Fix the camera falling below the terrain on the starting platform.
+- For post processing, implement an effect (e.g., chromatic aberration or similar override) when the player dashes or gets hit.
+- Add player movement animations, such as running and jumping.
+- Add a burst of particles and a sound effect when a platform appears. (Later on when we complete the cutscenes chapter, you can use Cinemachine to create a short camera cutscene to highlight the revealed platform.)
+- Since your enemy floats, add particles or visual cues (like a subtle gust of wind) to show why it’s floating.
+- For UI, create a main menu, pause screen, restart option, and a clear way to reset once the end of the level is reached.
+- Include SFX for footsteps, jumping, landing, and getting hit.
+- Add at least one background music track for your levels.
 
 ## Development
 
@@ -261,6 +265,10 @@ Revised the hitbox on the cloud platforms just so that they more properly match 
 - #### Revised view change potion
 Revised the view change potion so that instead of changing view it spawns the moving platform, made it so that it interacts with a Level Event object that can be used to control objects through the Texture scrips, changes implemented in TextureChanger.cs and TextureChangeItem.cs
 <video src="https://github.com/user-attachments/assets/6acfb37f-0ab5-4150-881a-b3c435bfb4ee"></video>
+
+### Project Checkpoint Part 4:
+
+Put everything I've been working on here
 
 # Running Instructions
 - Build and Run to load the scene (reaching the alarm clock will transition between scenes)
