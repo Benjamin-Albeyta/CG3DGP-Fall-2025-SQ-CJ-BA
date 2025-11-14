@@ -226,7 +226,6 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator ChromaticHitEffect()
     {
-        float t = 0f;
 
         // Lerp up
         while (chromatic.intensity.value < chromaticMax - 0.01f)
