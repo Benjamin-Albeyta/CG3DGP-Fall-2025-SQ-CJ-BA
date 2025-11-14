@@ -134,6 +134,8 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 - Work on refining UI elements so they're not bland / default
 - Work on Level 2 and making it more complete (textured and etc)
 - Possibly work on creating a level 3
+- Refine hitbox on cloud platforms
+- Work on making the Dropshadow properly cast onto all visible objects
 - Add Juice to UI elements if possible 
 
 ## Development
