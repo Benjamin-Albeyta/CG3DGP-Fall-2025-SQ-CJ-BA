@@ -111,9 +111,9 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-
     private void Awake()
     {
+
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         rb.useGravity = false; // disable built-in gravity
@@ -670,6 +670,5 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(duration);
         isMovementLocked = false;
     }
-
 
 } 

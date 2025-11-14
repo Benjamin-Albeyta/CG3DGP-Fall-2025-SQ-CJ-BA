@@ -23,7 +23,6 @@ public class WalkingEvents : MonoBehaviour
     {
         if (footstepClips == null || footstepClips.Length == 0)
         {
-            Debug.LogWarning("No footstep clips assigned!");
             return;
         }
 
