@@ -112,14 +112,29 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 - Revised View Change potion so it instead spawns a platform
 
 ### Project Part 3-4 (Sound, UI and Animation): 
-- Fix the camera falling below the terrain on the starting platform.
-- For post processing, implement an effect (e.g., chromatic aberration or similar override) when the player dashes or gets hit.
-- Add player movement animations, such as running and jumping.
-- Add a burst of particles and a sound effect when a platform appears. (Later on when we complete the cutscenes chapter, you can use Cinemachine to create a short camera cutscene to highlight the revealed platform.)
-- Since your enemy floats, add particles or visual cues (like a subtle gust of wind) to show why it’s floating.
-- For UI, create a main menu, pause screen, restart option, and a clear way to reset once the end of the level is reached.
-- Include SFX for footsteps, jumping, landing, and getting hit.
-- Add at least one background music track for your levels.
+- ~~Fix the camera falling below the terrain on the starting platform.~~
+- ~~For post processing, implement an effect (e.g., chromatic aberration or similar override) when the player dashes or gets hit.~~
+- ~~Add player movement animations, such as running and jumping.~~
+- ~~Add a burst of particles and a sound effect when a platform appears. (Later on when we complete the cutscenes chapter, you can use Cinemachine to create a short camera cutscene to highlight the revealed platform.)~~
+- ~~Since your enemy floats, add particles or visual cues (like a subtle gust of wind) to show why it’s floating.~~
+- ~~For UI, create a main menu, pause screen, restart option, and a clear way to reset once the end of the level is reached.~~
+- ~~Include SFX for footsteps, jumping, landing, and getting hit.~~ (Note, decided to add sound effect on the enemy rather than the player, having both lead to a more messy soundscape so decided to only keep the one for now) 
+- ~~Add at least one background music track for your levels.~~
+
+### Additions
+- Created an Audio mixer to control sounds
+- Made the enemy have a unique animation and sound effect with particles for when coming into contact with the player
+- Added sound effect for finishing the level (collecting the Clock at the end)
+- Added sound effect for collecting heart for health
+- Added unique dash trail effect on using the dash
+- Added particle effects to health icons so easier too see
+
+###  Project Part 4: Finishing Touches
+- Work on optimization and reducing size (removing uneeded files that have been imported and etc)
+- Work on refining UI elements so they're not bland / default
+- Work on Level 2 and making it more complete (textured and etc)
+- Possibly work on creating a level 3
+- Add Juice to UI elements if possible 
 
 ## Development
 
@@ -266,9 +281,61 @@ Revised the hitbox on the cloud platforms just so that they more properly match 
 Revised the view change potion so that instead of changing view it spawns the moving platform, made it so that it interacts with a Level Event object that can be used to control objects through the Texture scrips, changes implemented in TextureChanger.cs and TextureChangeItem.cs
 <video src="https://github.com/user-attachments/assets/6acfb37f-0ab5-4150-881a-b3c435bfb4ee"></video>
 
-### Project Checkpoint Part 4:
+### Project Checkpoint Part 3-4:
 
-Put everything I've been working on here
+- #### Fixed camera falling below level
+Changed the minimum distance camera can go (changing the value for the negative axis) so that it can't fall underneath the starting platform.
+<video src="https://github.com/user-attachments/assets/46b76996-d521-416f-bbc4-bdcafb36e4e6"></video>
+
+- #### Added animations and animation controller
+Created an animation controller PlayerAnimator.controller and imported custom made animations for Dash, Jump, Idle, Walk and taking Damage (Armature_Jump.anim, Armature_Idle.anim, Armature_Dash.anim, Armature_Walk.anim, Armature_Damage.anim) Then updated the playermovement script so that it called on the variables establishes in the animation controller to ensure that the animations worked, also made it so that the speed of the walking and dash animations was controlled by the speed of variable keeping track of movement speed so it would appear more natural.
+![Animation Controller](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreifk4dotahs44x7yrmmyq3qx2676vfns4ijxnsbeisvwmsxzlbfnpm@jpeg)
+<video src="https://github.com/user-attachments/assets/713e55de-83d1-42a5-a157-777a716fd458"></video>
+
+- #### Added Particles and sound effect for platform appearing
+Sound effect is taken from FreeSound.org, particle effect is an altered version of the one used for landing; implemented in ViewChangePotion.cs
+<video src="https://github.com/user-attachments/assets/a6f4719e-8979-420a-9079-ab6859dfe177"></video>
+
+- #### Added particles for enemy floating as well as for enemy making contact with the player alongside a sound effect
+Added the sound effect and animation to the Enemy.cs script, created 2 different particle effects for the enemy as well and made the audio 3D spacially aware on the attack. Also added a post processing effect that triggers increase in chromatic abberation upon getting hit by an enemy, implemented in Enemy.cs.
+<video src="https://github.com/user-attachments/assets/8466b43f-3fd5-415b-b1fe-4661c1d83c99"></video>
+
+- #### Created Audio Mixer to control sound balance
+Audio Mixer overviews the current sound effects, music, player sfx and ambiance and their balance; currently no ambient sounds but wanted to include the slider regardless. 
+![Audio Mixer](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreigjaagpngivl2ze4g2becus6okcawd4vq2arkybya2gtmc3x2nole@jpeg)
+
+- #### Created Main Menu
+Only has one option currently which is to start the game, and has it's own unique background music, taken from FreeSound.org, specific citations in file name. Actual design is still very placeholder. Start button implemented in StartGame.cs
+![Main Menu](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreigslxk7xa4w7n5thwy5tc4d4onyxhwc7o22kaa4y6mnxmmrxpmkj4@jpeg))
+
+- #### Created Pause Screen
+Pause screen has options for Resume, Exit to main menu and Restart Level. Pause implemented in Pause.cs, Exit to main menu in ReturnToMenu.cs and Restart level in ResetLevel.cs. Pause by pressing p.
+![Pause Screen](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreigqm54p5xr2sasxpwiez5ybeijrcaj22isxhrsv7xswmue22o3lnu@jpeg)
+
+- #### Included Background music
+Background music by Elektrobear, is 2D so that the music doesn't fade even with an increase to distance 
+<video src="https://github.com/user-attachments/assets/09866a8f-ed19-49c6-8e0c-81ae27a8402a"></video>
+
+- #### Added player sound effects
+Footstep sounds were taken from the unity asset store, there are 6 different ones, each time a footstep is called it randomly selects one of the 6 options. Called using events triggered in the animations for the character.
+For the landing, dash, and jump sounds they are taken from FreeSound.org, specific citations in file name and called in PlayerMovement.cs; there is also a sheep baa sound effect also taken from FreeSound.org which has a 1/10 chance to happen when jumping or dashing, also implemented in PlayerMovement.cs
+<video src="https://github.com/user-attachments/assets/7f4e7ad7-35df-4554-abb6-60013db8fd80"></video>
+
+- #### Added sound effect for clock
+Sound effect taken from FreeSound.org, specific citations in file name; implemented in DoorGoal.cs
+<video src="https://github.com/user-attachments/assets/258db1d5-d93c-4393-9e3f-ccdaff9b753f"></video>
+
+- #### Added sound effect for heart
+Sound effect taken from FreeSound.org, specific citations in file name; implemented in HealthPickup.cs
+<video src="https://github.com/user-attachments/assets/be4fd808-73c4-4449-be51-baace74ba7d8"></video>
+
+- #### Added particle effects to health icons
+Created particle effects around the heath icons so that they are easier too see and won't get lost during gameplay
+<video src="https://github.com/user-attachments/assets/ff633041-30c5-457d-aa33-931d720fc557"></video>
+
+- #### Added unique Dash effect
+Not achieved by using the particle system, instead in PlayerMovement.cs, when the player uses a dash and during that dash coroutine the game looks at the player's mesh, makes a copy of it in the exact position it was in with a different texture (transparent blue) and does this every certain amount of frames during the dash. 
+<video src="https://github.com/user-attachments/assets/94d1562c-862e-4235-9b91-60e7aaccca81"></video>
 
 # Running Instructions
 - Build and Run to load the scene (reaching the alarm clock will transition between scenes)
@@ -278,3 +345,5 @@ Put everything I've been working on here
 - Mouse controls camera movement
 - Losing all health results in reloading the scene with a unique message in the console
 - Completing the objective by touching the clock results in moving to the next level / scene
+- Pressing start on Main Menu loads into first level, can return to menu at any time from pause menu, press 'p' to pause
+- Pause menu also allows you to return to the main menu at any time 
