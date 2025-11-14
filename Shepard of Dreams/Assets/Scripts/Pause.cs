@@ -34,7 +34,7 @@ public class Pause : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current.pKey.wasPressedThisFrame)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;

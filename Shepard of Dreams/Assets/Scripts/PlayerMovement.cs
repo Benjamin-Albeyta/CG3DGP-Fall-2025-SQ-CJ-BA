@@ -2,10 +2,11 @@
   * Author: Benjamin Albeyta
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 9/20/2025
-  * Date Last Updated: 11/10/2025
-  * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4, also handles gravity and calls PlayerSquashStretch.cs
+  * Date Last Updated: 11/14/2025
+  * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4, also handles gravity and calls PlayerSquashStretch.cs, 
+   *as well as returning variables for the animation control states and triggering sound effects
 
-  * Update: Added handling animations and the unique dash checks for the dash effect
+  * Update: Added handling animations and the unique dash checks for the dash effect as well as audio handling
   */
 
 using System.Collections;
@@ -108,6 +109,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sound Effects")]
     public AudioSource DashSFX;
     public AudioSource JumpSFX;
+    public AudioSource SheepBaa;
+    public AudioSource LandSFX;
+    public float chanceToPlay = 0.1f;
 
 
 
@@ -160,6 +164,7 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(Vector3.up * initalJumpForce, ForceMode.Impulse);
             currentHoldForce = holdForce;
             JumpSFX.Play();
+            TryPlayBaa();
 
             Debug.Log("Jump Started (ground)");
         }
@@ -168,6 +173,8 @@ public class PlayerMovement : MonoBehaviour
         {
             DoWallJump();
             JumpSFX.Play();
+            TryPlayBaa();
+
             squashStretch?.StretchVertical();
         }
 
@@ -195,6 +202,7 @@ public class PlayerMovement : MonoBehaviour
             // Flatten dashDir so it always ignores slope steepness
             dashDir = Vector3.ProjectOnPlane(moveDir, Vector3.up).normalized;
             DashSFX.Play();
+            TryPlayBaa();
 
             StartCoroutine(DashRoutine());
             StartCoroutine(DashCooldownRoutine());
@@ -323,6 +331,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 landingParticles.transform.position = groundCheck.position; // place at feet
                 landingParticles.Play();
+                LandSFX.Play();
             }
 
         }
@@ -669,6 +678,14 @@ public class PlayerMovement : MonoBehaviour
         jumpHeld = false;
         yield return new WaitForSeconds(duration);
         isMovementLocked = false;
+    }
+
+    public void TryPlayBaa()
+    {
+        if (Random.value < chanceToPlay)
+        {
+            SheepBaa.Play();
+        }
     }
 
 } 
