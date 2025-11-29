@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+
+                //Will need to be changed so instead it goes to a final (victory screen / level)
                 Debug.Log("[Game] Last level reached. Staying here.");
                 return;
             }
