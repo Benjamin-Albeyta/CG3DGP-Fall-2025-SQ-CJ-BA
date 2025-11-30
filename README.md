@@ -130,17 +130,19 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 - Added particle effects to health icons so easier too see
 
 ###  Project Part 4: Finishing Touches
-- Update running instructions
-- Work on optimization and reducing size (removing uneeded files that have been imported and etc)
-- Work on Level 2 and making it more complete (textured and etc)
-- Possibly work on creating a level 3
-- Refine hitbox on cloud platforms
-- Work on making the Dropshadow properly cast onto all visible objects
-- Complete a fully playable start-to-finish game loop, including all planned levels and a final win condition, and ensure players can return to the beginning. This is essential for your WebGL build.
+- ~~Update running instructions~~
+- ~~Work on optimization and reducing size (removing uneeded files that have been imported and etc)~~
+- ~~Work on Level 2 and making it more complete (textured and etc)~~
+- ~~Possibly work on creating a level 3~~
+- ~~Complete a fully playable start-to-finish game loop, including all planned levels and a final win condition, and ensure players can return to the beginning. This is essential for your WebGL build.~~
 - Add at least one element of UI juicing, as you mentioned in your Project Part 4 plan. Could be anything from transitions, subtle scaling, to opacity changes.
 - Add one additional juicing element of your choice to any part of the game and include it in the GDD (e.g., camera shake on impact, a unique tween for a new mechanic in one of your currently unimplemented levels, etc.).
-- Update your UI to use a non-default font and replace the default Unity textures.
+Specifically created a new system with the collected potion, triggers a countdown timer for objects that appear and dissapear on a timer. 
+- ~~Update your UI to use a non-default font and replace the default Unity textures.~~
 - Test your WebGL build early to catch any web-specific issues before the next submission.
+
+### Additions
+- Updated pause so it also stops the music that's currently playing.
 
 ## Development
 
@@ -344,7 +346,7 @@ Not achieved by using the particle system, instead in PlayerMovement.cs, when th
 <video src="https://github.com/user-attachments/assets/94d1562c-862e-4235-9b91-60e7aaccca81"></video>
 
 # Running Instructions
-- Build and Run to load the scene (reaching the alarm clock will transition between scenes)
+- Build and Run on the main menu to start 
 - WASD to move
 - Shift to dash
 - Space to jump
@@ -352,4 +354,5 @@ Not achieved by using the particle system, instead in PlayerMovement.cs, when th
 - Losing all health results in reloading the scene with a unique message in the console
 - Completing the objective by touching the clock results in moving to the next level / scene
 - Pressing start on Main Menu loads into first level, can return to menu at any time from pause menu, press 'p' to pause
-- Pause menu also allows you to return to the main menu at any time 
+- Pause menu also allows you to return to the main menu at any time
+- when all levels complete goes to a victory scene
