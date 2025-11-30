@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 2398810137705768947}
   - component: {fileID: 4763974814944386496}
   - component: {fileID: 8096176906837206663}
+  - component: {fileID: 9188721284537273169}
   m_Layer: 0
   m_Name: HealthPickup
   m_TagString: Untagged
@@ -239,6 +240,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9188721284537273169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7036056809155240516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1c566e2a3fb244187adbd407d17b50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthSound: {fileID: 6865792786716450189}
+  healAmount: 4
 --- !u!1001 &9141778143873382604
 PrefabInstance:
   m_ObjectHideFlags: 0

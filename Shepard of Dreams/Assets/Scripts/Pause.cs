@@ -30,6 +30,7 @@ public class Pause : MonoBehaviour
         Time.timeScale = 1;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        AudioListener.pause = false;
     }
 
     void Update()
@@ -40,6 +41,7 @@ public class Pause : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             pauseMenu.SetActive(true);
             Time.timeScale = 0;
+            AudioListener.pause = true;
         }
     }
 

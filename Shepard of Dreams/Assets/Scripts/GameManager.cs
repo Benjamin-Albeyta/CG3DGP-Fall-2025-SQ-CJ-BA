@@ -55,21 +55,11 @@ public class GameManager : MonoBehaviour
         int nextSceneIndex = currentSceneIndex + 1;
 
         // If we're at the last scene
-        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
+        if (nextSceneIndex == 4)
         {
-            if (loopToFirstScene)
-            {
-                Debug.Log("[Game] Last level reached. Looping to first scene.");
-                nextSceneIndex = 0;
-            }
-            else
-            {
-
-                //Will need to be changed so instead it goes to a final (victory screen / level)
-                Debug.Log("[Game] Last level reached. Staying here.");
-                return;
-            }
-        }
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        } 
 
         Debug.Log($"[Game] Loading next scene: {nextSceneIndex}");
         SceneManager.LoadScene(nextSceneIndex);

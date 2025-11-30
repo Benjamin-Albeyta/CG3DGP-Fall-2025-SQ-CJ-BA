@@ -188,7 +188,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: View Change Potion Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9188721284537273169, guid: 83f7597de7ec0a743b39761d12613708, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8538351162541890722, guid: 83f7597de7ec0a743b39761d12613708, type: 3}
     m_AddedGameObjects:
