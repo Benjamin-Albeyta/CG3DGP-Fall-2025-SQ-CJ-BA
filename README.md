@@ -139,7 +139,8 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 - ~~Add one additional juicing element of your choice to any part of the game and include it in the GDD (e.g., camera shake on impact, a unique tween for a new mechanic in one of your currently unimplemented levels, etc.).~~
 Specifically created a new system with the collected potion, triggers a countdown timer for objects that appear and dissapear on a timer. 
 - ~~Update your UI to use a non-default font and replace the default Unity textures.~~
-- Test your WebGL build early to catch any web-specific issues before the next submission.
+- ~~Test your WebGL build early to catch any web-specific issues before the next submission.~~
+I have tested it and it seems to work
 
 ### Additions
 - Updated pause so it also stops the music that's currently playing.
@@ -346,6 +347,40 @@ Created particle effects around the heath icons so that they are easier too see 
 - #### Added unique Dash effect
 Not achieved by using the particle system, instead in PlayerMovement.cs, when the player uses a dash and during that dash coroutine the game looks at the player's mesh, makes a copy of it in the exact position it was in with a different texture (transparent blue) and does this every certain amount of frames during the dash. 
 <video src="https://github.com/user-attachments/assets/94d1562c-862e-4235-9b91-60e7aaccca81"></video>
+
+### Project Checkpoint Part 4:
+
+- #### Created a Third Level
+Created a new third level with it's own unique mechanics, terrain background, textures, and music.
+![Level 3](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreih6m2mvmdcyvyql7kz6luncxrbuuaxwybyki2hgiipil5twzw7nhu@jpeg)
+
+- #### Created a new main menu
+New main menu with a new button and custom fonts.
+![Main Menu](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreicillzrb5uaggoqiumcgszdsvpzycwbscx5rljb4up6zec3mw3xe4@jpeg)
+
+- #### Created a system for the buttons expanding when you hover over them for UI juicing
+Contained within ButtonHoverAnimation.cs, uses DG.tweening which is a package downloaded from the Unity Assset store.
+<video src="https://github.com/user-attachments/assets/193afb95-778f-4fbe-bcfd-0b04cfa342ca"></video>
+
+- #### Updated the Pause Menu UI
+Updated pause menu ui to use the expanding buttons as well as different custom button items instead of the built in ones with Unity. 
+![Pause Menu](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreie33ymjlljmkieouyokhyod62zgui6h6kf73sqlrxq4hd47sk7k2m@jpeg)
+
+- #### Created a new system with potion for dissapearing reappearing platforms, with sound effects
+Implemented in PotionPickup.cs and AlternatingObjectSets.cs; this way it's a variant on what the potion does that's more interesting from a gameplay perspective and allows for more unique level design. Works by having a blank game object with the script for AlternatingObjectSets attached, then add objects to Set A and B in those object sets, and have the object containing AlternatingObjectSets.cs be referenced by the potion which contains PotionPickup.cs. Each object does have a particle effect and a sound effect as well as a countdown sound effect for timing up when the next set is going to appear.
+<video src="https://github.com/user-attachments/assets/219b655f-4a35-4110-bc61-b39c66272409"></video>
+
+- #### Finished texturing the second level
+Created a new terrain for background with it's own textures, slightly revised the design of the second level and textured all objects in the level.
+![Level 2](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreic3iqr7kfaqiudivp5dlmyf3ai5adyijtoa4lbcwk7mkfzzlvzwrq@jpeg)
+
+- #### Created a victory scene
+Created a victory screen the GameManager.cs now transitions to the victory screen when the player completes level 3, the screen allows the player to go back to the main menu and start playing again.
+![Victory Screen](https://cdn.bsky.app/img/feed_fullsize/plain/did:plc:gw3cmasus5q2obg274yrww7u/bafkreicdn2doiy7spsplvpqwlqnndqbbhoposnmsjni62z5q4wenqrffoi@jpeg)
+
+- #### Updated pause so that it also stops music and sound effects
+This way it properly lines up even after pausing, with the sound effects saying when the objects are appearing or dissapearing. Accomplished through minor tweaks to Pause.cs, ResetLevel.cs, and ReturnToMenu.cs.
+<video src="https://github.com/user-attachments/assets/9fa3cce9-6df7-4fc6-906c-930d387b52f0"></video>
 
 # Running Instructions
 - Build and Run on the main menu to start 
