@@ -2,8 +2,10 @@
   * Author: Benjamin Albeyta, Sophia Qian 
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 11/13/2025
-  * Date Last Updated: 11/13/2025
+  * Date Last Updated: 11/30/2025
   * Summary: Controls the pause activation
+
+  * Last Update: Made it so that pause also pauses music
   */
 
 
