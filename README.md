@@ -135,14 +135,16 @@ Decided this wasn't a priority comapred to getting the baseline movement and mec
 - ~~Work on Level 2 and making it more complete (textured and etc)~~
 - ~~Possibly work on creating a level 3~~
 - ~~Complete a fully playable start-to-finish game loop, including all planned levels and a final win condition, and ensure players can return to the beginning. This is essential for your WebGL build.~~
-- Add at least one element of UI juicing, as you mentioned in your Project Part 4 plan. Could be anything from transitions, subtle scaling, to opacity changes.
-- Add one additional juicing element of your choice to any part of the game and include it in the GDD (e.g., camera shake on impact, a unique tween for a new mechanic in one of your currently unimplemented levels, etc.).
+- ~~Add at least one element of UI juicing, as you mentioned in your Project Part 4 plan. Could be anything from transitions, subtle scaling, to opacity changes.~~
+- ~~Add one additional juicing element of your choice to any part of the game and include it in the GDD (e.g., camera shake on impact, a unique tween for a new mechanic in one of your currently unimplemented levels, etc.).~~
 Specifically created a new system with the collected potion, triggers a countdown timer for objects that appear and dissapear on a timer. 
 - ~~Update your UI to use a non-default font and replace the default Unity textures.~~
 - Test your WebGL build early to catch any web-specific issues before the next submission.
 
 ### Additions
 - Updated pause so it also stops the music that's currently playing.
+- Added additional music
+- Added victory level with ability to return to main menu
 
 ## Development
 
