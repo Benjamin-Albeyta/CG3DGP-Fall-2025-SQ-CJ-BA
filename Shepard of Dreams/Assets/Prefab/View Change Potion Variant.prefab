@@ -188,8 +188,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: View Change Potion Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 8122567231556595926, guid: 83f7597de7ec0a743b39761d12613708, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8538351162541890722, guid: 83f7597de7ec0a743b39761d12613708, type: 3}
     m_AddedGameObjects:
@@ -222,6 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  poofSound: {fileID: 0}
 --- !u!4 &7462593154708479883 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2596150849921426019, guid: 83f7597de7ec0a743b39761d12613708,

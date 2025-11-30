@@ -10699,7 +10699,7 @@ MonoBehaviour:
   initalJumpForce: 10
   wallJumpUpForce: 25
   wallJumpHorizontalForce: 5
-  maxWallJumps: 5
+  maxWallJumps: 10
   wallCheckDistance: 0.6
   wallMask:
     serializedVersion: 2
