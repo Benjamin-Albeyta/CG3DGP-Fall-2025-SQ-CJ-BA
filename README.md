@@ -411,3 +411,5 @@ This way it properly lines up even after pausing, with the sound effects saying 
 - Pressing start on Main Menu loads into first level, can return to menu at any time from pause menu, press 'p' to pause
 - Pause menu also allows you to return to the main menu at any time
 - when all levels complete goes to a victory scene
+- You can also wall jump by pressing space while against a wall the number of remaining wall jumps is shown by the color of the particles coming from the health indicators.
+- If the dash is recharged is shown by the horns on the player, if they are present then the dash can be used, there is also a sound effect indicating when dash is ready. 
