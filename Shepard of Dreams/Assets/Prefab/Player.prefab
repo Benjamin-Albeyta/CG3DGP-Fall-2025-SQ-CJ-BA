@@ -10565,6 +10565,7 @@ GameObject:
   - component: {fileID: 8924759666573119192}
   - component: {fileID: 6350658811374847172}
   - component: {fileID: 3555214354016879760}
+  - component: {fileID: 366416859684103222}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -10941,6 +10942,22 @@ MonoBehaviour:
   verticalStretchAmount: 1.2
   horizontalSquashAmount: 0.8
   horizontalStretchAmount: 1.2
+--- !u!114 &366416859684103222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972362881744640798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b705efdbf56b26945b62471ac749aece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 2991902682754240008}
+  cameraFollow: {fileID: 8924759666573119192}
+  deathUI: {fileID: 0}
+  deathSFX: {fileID: 4177219774319198041}
 --- !u!1 &7005482916740032964
 GameObject:
   m_ObjectHideFlags: 0

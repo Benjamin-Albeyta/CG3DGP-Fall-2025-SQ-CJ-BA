@@ -6,7 +6,7 @@
   * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4, also handles gravity and calls PlayerSquashStretch.cs, 
    *as well as returning variables for the animation control states and triggering sound effects
 
-  * Update: Updated adding colors changing on the particle effects of orbs to get darker less jumps remaining
+  * Update: Updated adding colors changing on the particle effects of orbs to get darker less jumps remaining and changed to use PlayerDeathHandler
   */
 
 using System.Collections;
@@ -301,12 +301,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        //For killing via falling
         if (transform.position.y < fallThreshold)
         {
-            Debug.Log("Player is dead!");
-            if (GameManager.Instance != null)
+            PlayerDeathHandler deathHandler = FindObjectOfType<PlayerDeathHandler>();
+
+            if (deathHandler != null)
             {
-                GameManager.Instance.PlayerDied();
+                deathHandler.RunDeathSequence();
             }
         }
     }

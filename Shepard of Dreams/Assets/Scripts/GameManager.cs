@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
+        //Gotta add more here, probably, camera needs to freeze, plus player freeze, wait a couple seconds, then restart.
         Debug.Log("[Game] Player died");
         ResetLevel();
     }

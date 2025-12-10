@@ -2,10 +2,10 @@
   * Author: Benjamin Albeyta, Sophia Qian 
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 10/4/2025
-  * Date Last Updated: 11/10/2025
+  * Date Last Updated: 12/10/2025
   * Summary: Keeps track of the players health as denoted by a series of orbs surrounding the player
 
-  * Update: Added handling animations for when hit
+  * Update: Changed to use PlayerDeathHandler
   */
 
 using UnityEngine;
@@ -98,9 +98,12 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             Debug.Log("Player is dead!");
-            if (GameManager.Instance != null)
+
+            PlayerDeathHandler deathHandler = FindObjectOfType<PlayerDeathHandler>();
+
+            if (deathHandler != null)
             {
-                GameManager.Instance.PlayerDied();
+                deathHandler.RunDeathSequence();
             }
         }
 
