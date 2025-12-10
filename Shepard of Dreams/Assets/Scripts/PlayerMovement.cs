@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
     public Transform cameraTransform;
     public ParticleSystem[] particleSystems;
+    public PlayerDeathHandler deathHandler;
     private Color originalColor;
 
     
@@ -304,7 +305,6 @@ public class PlayerMovement : MonoBehaviour
         //For killing via falling
         if (transform.position.y < fallThreshold)
         {
-            PlayerDeathHandler deathHandler = FindObjectOfType<PlayerDeathHandler>();
 
             if (deathHandler != null)
             {

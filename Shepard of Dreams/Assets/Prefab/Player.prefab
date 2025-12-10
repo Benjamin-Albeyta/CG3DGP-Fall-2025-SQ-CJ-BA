@@ -10722,6 +10722,7 @@ MonoBehaviour:
   - {fileID: 404551011670420795}
   - {fileID: 4791279936449605357}
   - {fileID: 7661056825273903001}
+  deathHandler: {fileID: 366416859684103222}
   baseGravity: 15
   fallGravityMultiplier: 2.1
   lowJumpMultiplier: 1.5
@@ -10875,6 +10876,7 @@ MonoBehaviour:
   invincibilityTime: 1
   playerModel: {fileID: 2735681903557655115}
   flashInterval: 0.1
+  deathHandler: {fileID: 366416859684103222}
 --- !u!114 &8924759666573119192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10958,6 +10960,8 @@ MonoBehaviour:
   cameraFollow: {fileID: 8924759666573119192}
   deathUI: {fileID: 0}
   deathSFX: {fileID: 4177219774319198041}
+  deathSong: {fileID: 0}
+  levelMusic: {fileID: 0}
 --- !u!1 &7005482916740032964
 GameObject:
   m_ObjectHideFlags: 0

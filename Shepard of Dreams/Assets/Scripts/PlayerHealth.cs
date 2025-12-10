@@ -27,13 +27,15 @@ public class PlayerHealth : MonoBehaviour
     public float invincibilityTime = 1.0f;  // seconds of invulnerability
     private bool isInvincible = false;
     private float invincibleTimer = 0f;
-  [Header("Flash Settings")]
+    [Header("Flash Settings")]
     public GameObject playerModel;          // Assign the player's visual model here
     public float flashInterval = 0.1f;
 
     private Renderer[] modelRenderers;      // Cached renderers to toggle visibility
 
     private Animator animator;
+    [Header("Death")]
+    public PlayerDeathHandler deathHandler;
 
     private void Start()
     {
@@ -98,8 +100,6 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             Debug.Log("Player is dead!");
-
-            PlayerDeathHandler deathHandler = FindObjectOfType<PlayerDeathHandler>();
 
             if (deathHandler != null)
             {
