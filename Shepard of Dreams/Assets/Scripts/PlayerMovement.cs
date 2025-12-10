@@ -116,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioSource JumpSFX;
     public AudioSource SheepBaa;
     public AudioSource LandSFX;
+    public AudioSource DashReload;
     public float chanceToPlay = 0.1f;
 
 
@@ -689,6 +690,7 @@ public class PlayerMovement : MonoBehaviour
                 if (indicator != null) indicator.SetActive(false);
 
         yield return new WaitForSeconds(dashCooldown);
+        DashReload.Play();
         canDash = true;
     }
 
