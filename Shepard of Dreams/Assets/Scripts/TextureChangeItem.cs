@@ -19,6 +19,9 @@ public class TextureChangeItem : MonoBehaviour
     [Tooltip("The sound effect that will play when the collected.")]
     public AudioSource drinkSound;
 
+    public CameraShake camShake;
+
+
     private void OnTriggerEnter(Collider other)
     {
         // Only trigger when the player touches it
@@ -31,6 +34,9 @@ public class TextureChangeItem : MonoBehaviour
 
             // Destroy the item after collection
             Destroy(gameObject);
+
+            //camShake.StartCoroutine(camShake.Shake(0.2f, 0.15f));
+            camShake.ShakeCamera(0.2f, 0.15f);
 
             poofSound.Play();
 

@@ -10566,6 +10566,7 @@ GameObject:
   - component: {fileID: 6350658811374847172}
   - component: {fileID: 3555214354016879760}
   - component: {fileID: 366416859684103222}
+  - component: {fileID: 46119081270200765}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -10962,6 +10963,18 @@ MonoBehaviour:
   deathSFX: {fileID: 4177219774319198041}
   deathSong: {fileID: 0}
   levelMusic: {fileID: 0}
+--- !u!114 &46119081270200765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6972362881744640798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5a7efacc3013549ba200f31a80ea2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7005482916740032964
 GameObject:
   m_ObjectHideFlags: 0
@@ -11071,6 +11084,7 @@ GameObject:
   - component: {fileID: 5124860970339872504}
   - component: {fileID: 755456066073281693}
   - component: {fileID: 2546801893088550057}
+  - component: {fileID: 155210645145426641}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -11257,6 +11271,18 @@ MonoBehaviour:
   zoomSmoothSpeed: 10
   zoomMin: 2
   zoomMax: 10
+--- !u!114 &155210645145426641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554166486847041241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a5a7efacc3013549ba200f31a80ea2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1432064928647335218
 PrefabInstance:
   m_ObjectHideFlags: 0
