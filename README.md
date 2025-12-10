@@ -148,7 +148,7 @@ I have tested it and it seems to work
 - Added victory level with ability to return to main menu
 
 ### Final Project Submission
-- Ensure the aspect ratio works correctly in both 16:9 and 16:10.
+- ~~Ensure the aspect ratio works correctly in both 16:9 and 16:10.~~
 - ~~Add a delay between dying and restarting so sound/visual effects aren’t cut off early.~~
 - ~~Add a sound effect for picking up the potion.~~
 - Have disappearing platforms use a fade-in/fade-out transition instead of popping in/out.
