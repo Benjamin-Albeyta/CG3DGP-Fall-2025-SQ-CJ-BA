@@ -163,7 +163,7 @@ Decided instead to make them flash when about to dissapear.)
 - Implemented see through variations of platforms that show where the platforms are going to spawn for levels with those as elements.
 - Made the door only activate once, can't run into it after triggering it to cause sound effects to restart
 - Created sound effect for picking up potion
-- 
+- Added a sound effect that plays when dash is ready to use again 
 
 ## Development
 
