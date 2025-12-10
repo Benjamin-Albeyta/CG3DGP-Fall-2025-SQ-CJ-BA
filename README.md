@@ -149,14 +149,18 @@ I have tested it and it seems to work
 
 ### Final Project Submission
 - Ensure the aspect ratio works correctly in both 16:9 and 16:10.
-- Add a delay between dying and restarting so sound/visual effects aren’t cut off early.
+- ~~Add a delay between dying and restarting so sound/visual effects aren’t cut off early.~~
 - ~~Add a sound effect for picking up the potion.~~
 - Have disappearing platforms use a fade-in/fade-out transition instead of popping in/out.
 Decided not to have them fade in and fade out, I tried it but it was very unclear when specifically they were in and out because of the ever present transparent platforms showing where to jump.
 Decided instead to make them flash when about to dissapear.
-- Make the platform-appearing particles more obvious, and include a small camera shake for added impact.
+- ~~Make the platform-appearing particles more obvious, and include a small camera shake for added impact.~~ Implemented but only for level 1, as wouldn't fit with the other levels which had their own changes to how the platforms appear, screenshake would cause its own problems if it was that constant in those levels
 - ~~Add a visual indicator for the remaining wall jumps counter.~~
-- Make the third level significantly easier to complete. A good metric is all team members should be able to complete it reliably, not just one.
+- ~~Make the third level significantly easier to complete. A good metric is all team members should be able to complete it reliably, not just one.~~ 
+
+### Additions
+- Added a death UI that you are taken too after dying with options and unique music
+- Implemented sillouettes that show where the platforms are going to spawn for levels with those as elements.
 
 ## Development
 
