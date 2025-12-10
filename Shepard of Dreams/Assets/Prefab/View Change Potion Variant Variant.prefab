@@ -92,3 +92,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alternator: {fileID: 0}
+  drinkSound: {fileID: 6581182757298538844}
+--- !u!82 &6581182757298538844 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6226274494100462728, guid: 1ac0c555ad937484199018331283ebb7,
+    type: 3}
+  m_PrefabInstance: {fileID: 953959873607521748}
+  m_PrefabAsset: {fileID: 0}

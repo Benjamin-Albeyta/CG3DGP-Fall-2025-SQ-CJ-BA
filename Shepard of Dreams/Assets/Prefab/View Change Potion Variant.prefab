@@ -223,6 +223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   poofSound: {fileID: 0}
+  drinkSound: {fileID: 0}
 --- !u!4 &7462593154708479883 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2596150849921426019, guid: 83f7597de7ec0a743b39761d12613708,
