@@ -147,6 +147,15 @@ I have tested it and it seems to work
 - Added additional music
 - Added victory level with ability to return to main menu
 
+### Final Project Submission
+- Ensure the aspect ratio works correctly in both 16:9 and 16:10.
+- Add a delay between dying and restarting so sound/visual effects aren’t cut off early.
+- ~~Add a sound effect for picking up the potion.~~
+- Have disappearing platforms use a fade-in/fade-out transition instead of popping in/out.
+- Make the platform-appearing particles more obvious, and include a small camera shake for added impact.
+- ~~Add a visual indicator for the remaining wall jumps counter.~~
+- Make the third level significantly easier to complete. A good metric is all team members should be able to complete it reliably, not just one.
+
 ## Development
 
 ### Project Checkpoint 1-2:
