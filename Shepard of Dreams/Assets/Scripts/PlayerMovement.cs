@@ -2,11 +2,11 @@
   * Author: Benjamin Albeyta
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 9/20/2025
-  * Date Last Updated: 11/14/2025
+  * Date Last Updated: 12/10/2025
   * Summary: Handles player movement and associated checks, max jump height that can be comfortably reached is a platform at y = 4, also handles gravity and calls PlayerSquashStretch.cs, 
    *as well as returning variables for the animation control states and triggering sound effects
 
-  * Update: Added handling animations and the unique dash checks for the dash effect as well as audio handling
+  * Update: Updated adding colors changing on the particle effects of orbs to get darker less jumps remaining
   */
 
 using System.Collections;
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Wall Jump")]
     public float wallJumpUpForce = 6f;          // Upward push
     public float wallJumpHorizontalForce = 5f;  // Side push away from wall
-    public int maxWallJumps = 2;                // Number of wall jumps before landing
+    public int maxWallJumps = 15;                // Number of wall jumps before landing
     public float wallCheckDistance = 0.6f;      // How close to wall
     public LayerMask wallMask;                  // Which layers are walls
     public float wallStickGravityScale = 0.3f;  // How much gravity applies while sticking
@@ -68,6 +68,10 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.2f;
     public LayerMask groundMask;
     public Transform cameraTransform;
+    public ParticleSystem[] particleSystems;
+    private Color originalColor;
+
+    
 
     [Header("Custom Gravity")]
     public float baseGravity = 15f;          // Default gravity strength
@@ -137,6 +141,9 @@ public class PlayerMovement : MonoBehaviour
         //Gets the animator component
         animator = GetComponentInChildren<Animator>();
 
+        
+        ColorUtility.TryParseHtmlString("#FFFF00", out originalColor);
+
     }
 
     public void OnMove(InputValue value)
@@ -171,6 +178,9 @@ public class PlayerMovement : MonoBehaviour
         // --- Wall jump ---
         else if (!isGrounded && isTouchingWall && remainingWallJumps > 0)
         {
+            
+            //Right here is where I've gotta insert the color alteration stuff
+            UpdateColors(remainingWallJumps);
             DoWallJump();
             JumpSFX.Play();
             TryPlayBaa();
@@ -182,6 +192,22 @@ public class PlayerMovement : MonoBehaviour
         {
             currentHoldForce = 0f;
             Debug.Log("Jump Released");
+        }
+    }
+
+    //Updates the colors of surrounding particles
+    void UpdateColors(int jumps)
+    {
+        jumps = Mathf.Clamp(jumps, 0, 15);
+
+        float t = 1f - (jumps / 15f);  // normalize 0–15 to 1–0
+
+        Color newColor = Color.Lerp(originalColor, Color.black, t);
+
+        foreach (var ps in particleSystems)
+        {
+            var main = ps.main;
+            main.startColor = newColor;
         }
     }
 
@@ -298,6 +324,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             remainingWallJumps = maxWallJumps;
+            UpdateColors(15);
             wallClingTimer = 0f;
 
             if (!dustParticles.isPlaying)

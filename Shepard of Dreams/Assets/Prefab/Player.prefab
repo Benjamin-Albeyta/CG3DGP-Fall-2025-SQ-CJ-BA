@@ -10717,6 +10717,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   cameraTransform: {fileID: 3243872315576345113}
+  particleSystems:
+  - {fileID: 404551011670420795}
+  - {fileID: 4791279936449605357}
+  - {fileID: 7661056825273903001}
   baseGravity: 15
   fallGravityMultiplier: 2.1
   lowJumpMultiplier: 1.5
@@ -11347,6 +11351,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1432064928647335218}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &7661056825273903001 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8759006360346667691, guid: 48e52d8d352ce0548a5574c7e827370e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1432064928647335218}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2969686226552588058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11599,6 +11609,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4319011790514111558}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &4791279936449605357 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8759006360346667691, guid: 48e52d8d352ce0548a5574c7e827370e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4319011790514111558}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8940626990365034384
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11702,6 +11718,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48e52d8d352ce0548a5574c7e827370e, type: 3}
+--- !u!198 &404551011670420795 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8759006360346667691, guid: 48e52d8d352ce0548a5574c7e827370e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8940626990365034384}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8450473371710973025 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 672549420742517745, guid: 48e52d8d352ce0548a5574c7e827370e,
