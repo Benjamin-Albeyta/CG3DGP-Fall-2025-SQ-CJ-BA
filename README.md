@@ -152,6 +152,8 @@ I have tested it and it seems to work
 - Add a delay between dying and restarting so sound/visual effects aren’t cut off early.
 - ~~Add a sound effect for picking up the potion.~~
 - Have disappearing platforms use a fade-in/fade-out transition instead of popping in/out.
+Decided not to have them fade in and fade out, I tried it but it was very unclear when specifically they were in and out because of the ever present transparent platforms showing where to jump.
+Decided instead to make them flash when about to dissapear.
 - Make the platform-appearing particles more obvious, and include a small camera shake for added impact.
 - ~~Add a visual indicator for the remaining wall jumps counter.~~
 - Make the third level significantly easier to complete. A good metric is all team members should be able to complete it reliably, not just one.
