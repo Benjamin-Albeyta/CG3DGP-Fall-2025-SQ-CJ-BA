@@ -407,6 +407,7 @@ Part of larger changes to the death system, a delay after death, a specific deat
 
 - ### Added a sound effect for picking up potion
 Created a sound effect in Audacity from Ben's voice (altered and edited) plays when collecting the potion, implemented in TextureChangeItem.cs and PotionPickup.cs.
+<video src="https://github.com/user-attachments/assets/f4fce2d9-97cc-4c21-a6a8-fe7d10cad038"></video>
 
 - ### Implemented see through variations of platforms that show where the platforms are going to spawn for levels with those as elements.
 Created copies with new materials, the new materials are copies of the previous GroupA and GroupB materials except with transparency added, these objects also have their collision hitboxes removed. 
@@ -414,24 +415,31 @@ Created copies with new materials, the new materials are copies of the previous 
 
 - ### Implemented platforms flashing when they're about to appear as another indicator to go along with the sound effect
 Made it so that platforms about to appear start flashing faster and faster as they go, was implemented in AlternatingObjectSets.cs.
-  
+<video src="https://github.com/user-attachments/assets/b3a0628c-ddae-40c8-a6da-00acae20299f"></video>
+
 - ### Made the door only activate once, can't run into it after triggering it to cause sound effects to restart
 This was a minor little annoyance that has existed the entire time the game has, the player could run into the clock over and over to make the sound effect trigger, simply updated DoorGoal.cs so that this is no longer possible.
+<video src="https://github.com/user-attachments/assets/4506a7c7-5416-4d83-8c0c-87c5639c3cb0"></video>
 
 - ### Added a sound effect that plays when dash is ready to use again
 Used a modified version of the Ping from an M1 Garand, plays when dash is available change located in PlayerMovement.cs.
+<video src="https://github.com/user-attachments/assets/b0b6f0e8-59a5-472c-b093-3c242d461dc4"></video>
 
 - ### Made the platform-appearing particles more obvious, and include a small camera shake for added impact.
 Implemented but only for level 1, as wouldn't fit with the other levels which had their own changes to how the platforms appear, screenshake would cause its own problems if it was that constant in those levels. Was implemented through creating a script CameraShake.cs, then attaching it to the player object and triggering it from the potion collection. For the visual particle effect made it last longer so easier too see. 
+<video src="https://github.com/user-attachments/assets/b96fa2bf-2715-4a3c-a3fc-06931d3657dd"></video>
 
 - ### Add a visual indicator for the remaining wall jumps counter.
 Made the particle effect that surrounds the health objects change color to represent the current amount of wall jumps remaining, change was implemented in PlayerMovement.cs, resets color upon landing on the ground; otherwise Lerp's between the starting yellow and black getting darker each time a wall jump is used. 
+<video src="https://github.com/user-attachments/assets/f0508dbb-ac40-4b6b-9b1a-4dada16703ed"></video>
 
 - ### Made the third level significantly easier to complete.
 Was already made easier through the changes for making the wall jumps visually trackable, plus making the other platforms visible when not able to be interacted with, in addition added one other solid platform so the last stretch doesn't require as much precision, is much easier than previously while still retaining its inidivual identity and charm.
+<video src="https://github.com/user-attachments/assets/0d0df26d-7cdf-4cb9-9f41-fe62d2cdf49c"></video>
 
 # Demo
 Demo is a recording of playing through the first level on the web build of the game.
+<video src="https://github.com/user-attachments/assets/1abf0410-280e-4540-b154-0247f3d72459"></video>
 
 # Download
 https://balbeyta.itch.io/shepardofdreams
@@ -440,11 +448,14 @@ https://balbeyta.itch.io/shepardofdreams
 Future work that could be done on this project includes elaborating on the story, and who is dreaming / what the nightmare is. Adding more levels and gameplay variety, including things like bouncing platforms, sections of the ground that move you along them, and more general gameplay concepts and variety. Also refining movement even more, potentially adding new moves such as a dive or other ways of preserving speed and allowing for more fluid gameplay integration. Another addition could be adding NPCs, or other characters that can be interacted with to flesh out the setting and allow for more varied objectives and direct communication with the player, as well as having more enemies with unique movement and behaviors. Also refining objects hitboxes, and making them work with the dropshadow cast by the player. 
 
 # Member Contributions
-Benjamin Albeyta: Created movement systems, particle effect systems, and animation systems. Created the scripts for controlling the player and made the updates to the readme. Created custom 3D model and animations to be used in the project, sourced the sound effects and music, drew the victory screen image. Created the terrain used in backgrounds, balanced the audio levels, designed Level 3. Sourced and implemented the enemy, its unique animation and sound effect. Implemented the buttons expanding for juice, also added the squash and stretch for player model and making it move properly. Implemented player dropshadow, music systems, pause screen, as well as the functional game loop.
+### Benjamin Albeyta:
+Created movement systems, particle effect systems, and animation systems. Created the scripts for controlling the player and made the updates to the readme. Created custom 3D model and animations to be used in the project, sourced the sound effects and music, drew the victory screen image. Created the terrain used in backgrounds, balanced the audio levels, designed Level 3. Sourced and implemented the enemy, its unique animation and sound effect. Implemented the buttons expanding for juice, also added the squash and stretch for player model and making it move properly. Implemented player dropshadow, music systems, pause screen, as well as the functional game loop.
 
-Caroline Jia: Worked on design for Level 1, and scrips for controlling the camera. Created the lighting systems to be used with the game and worked on rendering lighting. Created the main menu layout and graphic design. Created cloud platform prefabs.
+### Caroline Jia:
+Worked on design for Level 1, and scrips for controlling the camera. Created the lighting systems to be used with the game and worked on rendering lighting. Created the main menu layout and graphic design. Created cloud platform prefabs.
 
-Sophia Qian: Implemented transparent blocks, the GameManger.cs system and its inital implementation, worked on level design for Level 2. Created and assisted with construction of Mac and Web builds. Worked on optimization and how well the game runs. Wrote script for door, and level completion.
+### Sophia Qian:
+Implemented transparent blocks, the GameManger.cs system and its inital implementation, worked on level design for Level 2. Created and assisted with construction of Mac and Web builds. Worked on optimization and how well the game runs. Wrote script for door, and level completion.
 
 # Running Instructions
 - Build and Run on the main menu to start 
