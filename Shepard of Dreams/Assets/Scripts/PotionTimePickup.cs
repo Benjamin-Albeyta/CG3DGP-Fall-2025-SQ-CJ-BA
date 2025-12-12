@@ -2,7 +2,7 @@
   * Author: Sophia Qian
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 12/5/2025
-  * Summary: Special potion in Level 1.
+  * Summary: Special potion in Level 3.
   *          When the player touches it, it flags that platforms
   *          in Level 3 should be slowed down, then destroys itself.
   */
@@ -13,15 +13,21 @@ public class PotionTimePickup : MonoBehaviour
 {
     private bool collected = false;
 
+    public AlternatingObjectSets alternatingObjects;
+
+    public AudioSource pickupSound;
+
     private void OnTriggerEnter(Collider other)
     {
         if (collected) return;
         if (!other.CompareTag("Player")) return;
 
         collected = true;
+        pickupSound.Play();
 
         // Mark that the player has collected the special potion
         GlobalGameState.hasSlowPlatforms = true;
+        //alternatingObjects.slowPlatforms = true;
 
         // Optionally hide the visual mesh immediately
         foreach (Transform child in transform)

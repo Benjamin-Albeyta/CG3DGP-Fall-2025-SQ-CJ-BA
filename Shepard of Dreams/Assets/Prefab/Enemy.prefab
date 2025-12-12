@@ -5164,6 +5164,7 @@ GameObject:
   - component: {fileID: 5421542935868818765}
   - component: {fileID: 2267909476811247027}
   - component: {fileID: 2164150088982557355}
+  - component: {fileID: -5739594788362900694}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -5282,6 +5283,10 @@ MonoBehaviour:
   pushBackForce: 30
   spinSpeed: 720
   spinDuration: 1
+  playerVolume: {fileID: 0}
+  chromaticMax: 1
+  chromaticLerpSpeed: 5
+  chromaticFadeSpeed: 2
 --- !u!114 &2164150088982557355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5298,6 +5303,24 @@ MonoBehaviour:
   pointB: {fileID: 0}
   speed: 3
   waitTime: 1
+--- !u!114 &-5739594788362900694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7808863580307235302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d00675adeda4ab8bae33deb017cecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 8159798670409555759, guid: 83041aea892c84b4682389ae2638fdf6, type: 3}
+  detectionRange: 10
+  stopRange: 1.5
+  chaseSpeed: 3
+  turnSpeed: 10
+  disablePatrolWhenChasing: 1
 --- !u!1 &8595504244481466165
 GameObject:
   m_ObjectHideFlags: 0

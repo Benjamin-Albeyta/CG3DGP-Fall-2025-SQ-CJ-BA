@@ -1,11 +1,12 @@
 /**
-  * Author: Benjamin Albeyta
+  * Author: Benjamin Albeyta, Sophia Qian
   * Project Members: Caroline Jia, Benjamin Albeyta, Sophia Qian
   * Date Created: 11/29/2025
-  * Date Last Updated: 11/29/2025
-  * Summary: Controlls a system that when activated causes objects to appear and disappear on a timer, add to an empty game object and have the platforms added to the lists inside the inspector.
-  */
+  * Date Last Updated: 12/12/2025
+  * Summary: Controls a system that when activated causes objects to appear and disappear on a timer, add to an empty game object and have the platforms added to the lists inside the inspector.
 
+  * Update: Made it compatable with the variable speeds
+  */
 
 using System.Collections;
 using UnityEngine;
@@ -41,18 +42,48 @@ public class AlternatingObjectSets : MonoBehaviour
     private bool effectStarted = false;
     private bool showingA = true;
 
-    private void Start()
+    // Cached base values
+    private float baseVisibleDuration;
+    private float baseMinFlashInterval;
+    private float baseMaxFlashInterval;
+
+    private void Awake()
     {
-        // If the player collected the special potion earlier, slow down the alternating behavior.
+        // Cache base values
+        baseVisibleDuration = visibleDuration;
+        baseMinFlashInterval = minFlashInterval;
+        baseMaxFlashInterval = maxFlashInterval;
+    }
+
+    private void FixedUpdate()
+    {
+        // Update speed dynamically
         if (GlobalGameState.hasSlowPlatforms)
         {
-            visibleDuration *= slowMultiplier;
-            minFlashInterval *= slowMultiplier;
-            maxFlashInterval *= slowMultiplier;
+            ApplySpeedSettings(true);
+        }
+        else
+        {
+            ApplySpeedSettings(false);
         }
     }
 
-    // Call this when the potion is collected
+    private void ApplySpeedSettings(bool slowActive)
+    {
+        if (slowActive)
+        {
+            visibleDuration = baseVisibleDuration * slowMultiplier;
+            minFlashInterval = baseMinFlashInterval * slowMultiplier;
+            maxFlashInterval = baseMaxFlashInterval * slowMultiplier;
+        }
+        else
+        {
+            visibleDuration = baseVisibleDuration;
+            minFlashInterval = baseMinFlashInterval;
+            maxFlashInterval = baseMaxFlashInterval;
+        }
+    }
+
     public void StartAlternating()
     {
         if (!effectStarted)
@@ -69,20 +100,30 @@ public class AlternatingObjectSets : MonoBehaviour
             GameObject[] nextSet = showingA ? setA : setB;
             GameObject[] prevSet = showingA ? setB : setA;
 
+            // Disable colliders on next set before flashing
+            SetCollidersEnabled(nextSet, false);
+
             // Play pre-appear sound
             if (poofSound != null)
                 poofSound.Play();
 
-            // Start flashing coroutine
+            // Start flashing
             Coroutine flashCoroutine = StartCoroutine(FlashObjectsLerp(nextSet, preAppearSoundDelay));
 
-            // Wait for pre-appear delay
-            yield return new WaitForSeconds(preAppearSoundDelay);
+            // Wait for preAppearSoundDelay dynamically
+            float elapsed = 0f;
+            while (elapsed < preAppearSoundDelay)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
 
-            // Stop flashing and ensure fully visible
+            // Stop flashing and fully show next set
             if (flashCoroutine != null)
                 StopCoroutine(flashCoroutine);
+
             SetActive(nextSet, true);
+            SetCollidersEnabled(nextSet, true); // enable colliders now
 
             // Play appear sound
             if (poofSound2 != null)
@@ -90,9 +131,15 @@ public class AlternatingObjectSets : MonoBehaviour
 
             // Hide previous set
             SetActive(prevSet, false);
+            SetCollidersEnabled(prevSet, false);
 
-            // Wait until next cycle
-            yield return new WaitForSeconds(visibleDuration);
+            // Remain visible dynamically
+            elapsed = 0f;
+            while (elapsed < visibleDuration)
+            {
+                elapsed += Time.deltaTime;
+                yield return null; // check each frame if visibleDuration changes
+            }
 
             showingA = !showingA;
         }
@@ -103,21 +150,24 @@ public class AlternatingObjectSets : MonoBehaviour
         float elapsed = 0f;
         bool visible = false;
 
+        // Colliders stay DISABLED during flashing
         while (elapsed < duration)
         {
-            // Compute normalized progress (0 → 1)
             float t = elapsed / duration;
-
-            // Lerp flash interval from min to max
             float interval = Mathf.Lerp(minFlashInterval, maxFlashInterval, t);
 
-            // Toggle visibility
             visible = !visible;
             SetActive(objects, visible);
 
-            // Wait for current interval
+            // Wait dynamically so interval adjusts if potion collected
+            float waitElapsed = 0f;
+            while (waitElapsed < interval)
+            {
+                waitElapsed += Time.deltaTime;
+                yield return null;
+            }
+
             elapsed += interval;
-            yield return new WaitForSeconds(interval);
         }
     }
 
@@ -127,6 +177,20 @@ public class AlternatingObjectSets : MonoBehaviour
         {
             if (obj != null)
                 obj.SetActive(state);
+        }
+    }
+
+    private void SetCollidersEnabled(GameObject[] objects, bool state)
+    {
+        foreach (GameObject obj in objects)
+        {
+            if (obj == null) continue;
+
+            foreach (Collider c in obj.GetComponentsInChildren<Collider>())
+                c.enabled = state;
+
+            foreach (Collider2D c2 in obj.GetComponentsInChildren<Collider2D>())
+                c2.enabled = state;
         }
     }
 }

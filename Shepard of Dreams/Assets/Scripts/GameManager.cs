@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         int nextSceneIndex = currentSceneIndex + 1;
 
         // If we're at the last scene
-        if (nextSceneIndex == 4)
+        if (nextSceneIndex == 5)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
