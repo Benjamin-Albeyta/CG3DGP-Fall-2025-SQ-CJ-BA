@@ -34,8 +34,23 @@ public class AlternatingObjectSets : MonoBehaviour
     public AudioSource poofSound;
     public AudioSource poofSound2;
 
+    [Header("Difficulty Adjustment")]
+    [Tooltip("Multiplier applied to timings when the slow-platform potion has been collected.")]
+    public float slowMultiplier = 1.5f;
+
     private bool effectStarted = false;
     private bool showingA = true;
+
+    private void Start()
+    {
+        // If the player collected the special potion earlier, slow down the alternating behavior.
+        if (GlobalGameState.hasSlowPlatforms)
+        {
+            visibleDuration *= slowMultiplier;
+            minFlashInterval *= slowMultiplier;
+            maxFlashInterval *= slowMultiplier;
+        }
+    }
 
     // Call this when the potion is collected
     public void StartAlternating()

@@ -136,6 +136,8 @@ public class Enemy : MonoBehaviour
     private EnemyPatrol patrolScript;
     private bool isSpinning = false;
 
+    private EnemyChase chaseScript;
+
     private ChromaticAberration chromatic;
 
     private void Start()
@@ -154,6 +156,11 @@ public class Enemy : MonoBehaviour
         {
             playerVolume.profile.TryGet(out chromatic);
         }
+
+        chaseScript = GetComponent<EnemyChase>();
+
+        if (chaseScript == null)
+            Debug.LogWarning("Enemy: No EnemyChase script found on this GameObject.");
 
         if (needleSound == null)
             Debug.LogWarning("AudioSource 'Cactuar Needles' not found as a child.");
@@ -219,8 +226,14 @@ public class Enemy : MonoBehaviour
         }
 
         if (patrolScript != null)
-            patrolScript.Resume();
-
+        {
+            // Only resume patrol if we are NOT currently chasing the player
+            if (chaseScript == null || !chaseScript.IsChasing)
+            {
+                patrolScript.Resume();
+            }
+            // If we are chasing, EnemyChase will handle pausing/resuming patrol
+        }
         isSpinning = false;
     }
 

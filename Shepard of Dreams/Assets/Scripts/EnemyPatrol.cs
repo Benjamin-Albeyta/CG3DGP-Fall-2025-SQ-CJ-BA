@@ -20,6 +20,8 @@ public class EnemyPatrol : MonoBehaviour
     private float waitTimer;
     private bool isPaused = false;
 
+    
+
     private void Start()
     {
         targetPoint = pointA; // start moving toward pointA

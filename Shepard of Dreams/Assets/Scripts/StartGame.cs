@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 public class StartGame : MonoBehaviour
 {
     [Header("Scene Settings")]
-    public string levelToLoad = "Level 1";
+    public string levelToLoad = "Intro";
 
     // Call this method from a UI Button
     public void OnStartGame()
