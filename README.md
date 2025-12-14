@@ -440,12 +440,12 @@ Was already made easier through the changes for making the wall jumps visually t
 - ### Added enemy chase behavior that allows enemies to detect and pursue the player  
   Implemented a new chase system where enemies stop patrolling once the player enters their detection radius and begin moving toward the player with smooth rotation and positional updates.  
   This creates more dynamic encounters and adds additional tension during platforming sequences.  
-  Implemented in `EnemyChase.cs` with coordination changes in `EnemyPatrol.cs`.  
+  Implemented in EnemyChase.cs with coordination changes in EnemyPatrol.cs.  
 
 - ### Added on-screen level text UI to indicate the current level  
   A small UI element was added to each level's Canvas to display the level number.  
   This provides players with a clear sense of progression and improves overall game readability.  
-  Implemented using per-level Canvas objects containing `LevelText` UI components.  
+  Implemented using per-level Canvas objects containing LevelText UI components.  
   <img width="603" height="344" alt="image" src="https://github.com/user-attachments/assets/fb5c4828-9b7d-4481-a28f-8b89e43e2e1e" />
 
 
@@ -453,15 +453,15 @@ Was already made easier through the changes for making the wall jumps visually t
   A new intro scene now appears after the main menu to set the atmosphere for the dream-world setting.  
   The scene displays a short narrative introduction that fades in, establishing the tone before gameplay begins.  
   After a brief delay (or any key press), the intro automatically loads Level 1.  
-  Implemented in `IntroController.cs` and the new `Intro` scene.  
+  Implemented in IntroController.cs and the new Intro scene.  
   <img width="448" height="249" alt="image" src="https://github.com/user-attachments/assets/2aaef9b0-1974-4b6b-babc-9522a277b5ea" />
 
 
 - ### Added potion in Level 3 that slows alternating platforms to balance difficulty  
   A special potion in Level 3 now slows down the timing of alternating platform groups once collected.  
   This gives players more reaction time and ensures the level remains challenging but fair for all skill levels.  
-  The slowdown mechanic is triggered with a global flag in `GlobalGameState` and applied in `AlternatingObjectSets.cs`.  
-  Implemented using `PotionPickup.cs` and integration in the Level 3 platform system.  
+  The slowdown mechanic is triggered with a global flag in GlobalGameState and applied in AlternatingObjectSets.cs.  
+  Implemented using PotionPickup.cs and integration in the Level 3 platform system.  
   <img width="466" height="308" alt="image" src="https://github.com/user-attachments/assets/846a0c08-ebce-44bd-bbd4-7e2e320cf249" />
 
 
@@ -484,7 +484,7 @@ Created movement systems, particle effect systems, and animation systems. Create
 Worked on design for Level 1, and scrips for controlling the camera. Created the lighting systems to be used with the game and worked on rendering lighting. Created the main menu layout and graphic design. Created cloud platform prefabs.
 
 ### Sophia Qian:
-Implemented transparent blocks, the GameManger.cs system and its inital implementation, worked on level design for Level 2. Created and assisted with construction of Mac and Web builds. Worked on optimization and how well the game runs. Wrote script for door, and level completion.
+Implemented transparent blocks, the GameManger.cs system and its inital implementation, worked on level design for Level 2. Created and assisted with construction of Mac and Web builds. Worked on optimization and how well the game runs. Wrote scripts for the door and level completion, as well as trigger-based moving platforms that activate when the player steps on them. Implemented enemy chase behavior on top of the patrol system, added per-level level text showing the current level, created an intro scene between the main menu and Level 1, and helped design the Level 3 potion that slows the alternating platforms to better balance the overall difficulty.
 
 # Running Instructions
 - Build and Run on the main menu to start 
